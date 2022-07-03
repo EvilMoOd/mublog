@@ -54,7 +54,7 @@ font:
   # Global font settings used for all elements inside <body>.
   global:
     external: true
-    family: Mulish
+    family: "ZCOOL KuaiLe"
     size:
 
   # Font settings for alternate title.
@@ -63,7 +63,7 @@ font:
     family: Fredericka the Great
     size: 3.5
 
-  # Font settings for site title.
+  # Font settings for site title.le-system,"PingFang
   title:
     external: true
     family: Noto Serif JP
@@ -91,14 +91,26 @@ iconfont: "1832207_igi8uaupcus"
 
 menu:
   home: / || home
-  # about: /about/ || user
   posts:
     default: / || feather
     archives: /archives/ || list-alt
     categories: /categories/ || th
     tags: /tags/ || tags
-  # friends: /friends/ || heart
-  # links: /links/ || magic
+  stack:
+    default: / || magic
+    language: /stack/language || fedora
+    frame: /stack/frame || coffee
+    store: /stack/store || compress
+  interview:
+    default: / || pen
+    algorithm: /interview/algorithm || coffee
+    network: /interview/network || coffee
+    CSS: /interview/CSS || coffee
+    JavaScript: /interview/JavaScript || coffee
+    Vue: /interview/Vue || coffee
+    React: /interview/React || coffee
+    project: /interview/project || coffee
+  about: /about/ || user
 
 # Social Links
 # Usage: `Key: permalink || icon || color`
@@ -107,10 +119,10 @@ menu:
 # secend value is the name of Font icon.
 social:
   github: https://github.com/EvilMoOd || github || "#191717"
+  music: https://music.163.com/#/user/home?id=353882446 || cloud-music || "#e60026"
   #google: https://plus.google.com/yourname || google
   #twitter: https://twitter.com/yourname || twitter || "#00aff0"
   #zhihu: https://www.zhihu.com/people/yourname || zhihu || "#1e88e5"
-  #music: https://music.163.com/#/user/home?id=yourid || cloud-music || "#e60026"
   #weibo: https://weibo.com/yourname || weibo || "#ea716e"
   #about: https://about.me/yourname || address-card || "#3b5998"
   #email: mailto:yourname@mail.com || envelope || "#55acd5"
@@ -142,12 +154,12 @@ footer:
     # Change the color of icon, using Hex Code.
     color: "#ffc0cb"
   # Dependencies: https://github.com/theme-next/hexo-symbols-count-time
-  count: false
+  count: true
   powered: true
 
 post:
   # Dependencies: https://github.com/theme-next/hexo-symbols-count-time
-  count: false
+  count: true
 
 # Reward (Donate)
 reward:
@@ -215,16 +227,16 @@ valine:
 
 # bgm
 audio:
-  # - title: 列表1
-  #   list:
-  #    - https://music.163.com/#/playlist?id=2943811283
-  #    - https://music.163.com/#/playlist?id=2297706586
+  - title: 心动歌单
+    list:
+    - https://music.163.com/#/playlist?id=2399323307
+    #  - https://music.163.com/#/playlist?id=497827001
   # - title: 列表2
-  #   list:
-  #    - https://music.163.com/#/playlist?id=2031842656
+    # list:
+    #  - https://music.163.com/#/playlist?id=2031842656
 
 # random image api
-image_server: # "https://acg.xydwz.cn/api/api.php"
+image_server:  #"https://acg.xydwz.cn/api/api.php"
 
 # Algolia Search
 # For more information: https://www.algolia.com

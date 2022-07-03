@@ -1,8 +1,8 @@
 ---
 name: 简体中文
 favicon:
-  show: （●´3｀●）やれやれだぜ
-  hide: (´Д｀)大変だ！
+  show: （●´3｀●）嗯？Yeah~
+  hide: (´Д｀)WTF?
 
 title:
   archive: 归档
@@ -21,7 +21,13 @@ menu:
   categories: 分类
   tags: 标签
   about: 关于
-  search: 搜索
+  frame: 框架
+  store: 工具库
+  interview: 面筋
+  algorithm: 算法
+  network: 网络
+  project: 工程化
+  language: 语言
 
 sidebar:
   overview: 站点概览
