@@ -54,8 +54,9 @@ font:
   # Global font settings used for all elements inside <body>.
   global:
     external: true
-    family: "ZCOOL KuaiLe"
+    family: ZCOOL KuaiLe
     size:
+    # ZCOOL KuaiLe
 
   # Font settings for alternate title.
   logo:
@@ -66,24 +67,24 @@ font:
   # Font settings for site title.le-system,"PingFang
   title:
     external: true
-    family: Noto Serif JP
+    family: yin
     size: 2.5
 
   # Font settings for headlines (<h1> to <h6>).
   headings:
     external: true
-    family: Noto Serif SC
+    family: yin
     size:
 
   # Font settings for posts.
   posts:
     external: true
-    family:
+    family: yin
 
   # Font settings for <code> and code blocks.
   codes:
     external: true
-    family: Inconsolata
+    family: yin
 
 # project of https://www.iconfont.cn/
 # //at.alicdn.com/t/font_1832207_c8i9n1ulxlt.css => 1832207_c8i9n1ulxlt
