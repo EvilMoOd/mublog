@@ -9,8 +9,8 @@ title: 语言
 - site: MDN
   url: https://developer.mozilla.org/zh-CN/
   desc: MDN开发者文档
-  image: https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZovpcqAUcUcpowibu93dUireT7aQMCWdpzQ&usqp=CAU
-  color: "#F7E018"
+  image: https://pbs.twimg.com/profile_images/1511434207079407618/AwzUxnVf_400x400.png
+  color: "#000000"
 
 {% endlinks %}
 
