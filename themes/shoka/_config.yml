@@ -84,7 +84,7 @@ font:
   # Font settings for <code> and code blocks.
   codes:
     external: true
-    family: yin
+    family: JetBrains Mono
 
 # project of https://www.iconfont.cn/
 # //at.alicdn.com/t/font_1832207_c8i9n1ulxlt.css => 1832207_c8i9n1ulxlt
@@ -104,12 +104,9 @@ menu:
     store: /stack/store || compress
   interview:
     default: / || pen
-    algorithm: /interview/algorithm || coffee
     network: /interview/network || coffee
     CSS: /interview/CSS || coffee
     JavaScript: /interview/JavaScript || coffee
-    Vue: /interview/Vue || coffee
-    React: /interview/React || coffee
     project: /interview/project || coffee
   about: /about/ || user
 
