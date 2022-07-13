@@ -12,7 +12,7 @@ audio:
 ---
 
 :::primary
-[:rocket:快速开始](/computer-science/note/theme-shoka-doc/) - [:love_letter:依赖插件](/computer-science/note/theme-shoka-doc/dependents/) - [**:pushpin:基本配置**](/computer-science/note/theme-shoka-doc/config/) - [:rainbow:界面显示](/computer-science/note/theme-shoka-doc/display/) - [:unicorn:特殊功能](/computer-science/note/theme-shoka-doc/special/)
+[**:rocket:快速开始**](/mublog/shoka-doc/theme-shoka-doc/) - [:love_letter:依赖插件](/mublog/shoka-doc/dependents/) - [:pushpin:基本配置](/mublog/shoka-doc/config/) - [:rainbow:界面显示](/mublog/shoka-doc/display/) - [:unicorn:特殊功能](/mublog/shoka-doc/special/)
 :::
 
 
