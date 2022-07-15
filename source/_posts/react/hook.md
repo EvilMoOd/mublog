@@ -1,14 +1,14 @@
 ---
 title: React hook汇总
 date: 2022/07/12 14:45:48
-update: 2022/07/13 14:45:48
+update: 2022/07/14 14:45:48
 categories:
  - [react]
 tags:
  - react hook
 sticky: true
-valine:
-  placeholder: "react18已经出了接近一个多月了，hook作为react函数式组件最重要的功能，需要熟练运用和掌握其中的原理和使用场景"
+description: react18已经出了接近一个多月了，hook作为react函数式组件最重要的功能，需要熟练运用和掌握其中的原理和使用场景
+mermaid: true
 ---
 
 ## why hook？
@@ -30,18 +30,17 @@ const [state, setState] = useState(initData)
 const [state, setState] = useState(0);
   return (
     <>
-      <div onClick={()=>setState(state + 1)}>{state}<div>
+      <div onClick={()=>setState(state + 1)}>{state}</div>
     </>
   );
 ```
 
 `state`就是响应式数据，与vue不同的是，hook需要用`setState`去重新为`state`赋值才能响应式刷新页面，`initData`则是数据初始值
 
-:::info no-icon
+:::warn no-icon
 
-- 两次`dispatchAction`传入相同值，`state`不会更新
-- `setState`是异步的，配合定时器使用会导致重复渲染组件
-- 当前`dispatchAction`的执行上下文获取不到最新的`state`，只有在下一次组件`render`才获取到
+- 两次`setState`传入相同值，`state`不会更新，[特别注意，state是对象或数组时，修改state中的值再重新setState（state），视图不会更新，因为其地址相同].{red}
+- 在组件一次执行上下文中，state的值固定不变。如在SI定时器中，若直接赋值`setState(state+1)`,则会使页面一直显示1，且控制台输出state的值为0。若需要使用定时器完成此功能，则需要使用`setState((state)=>state+1)`，回调函数中的参数为先前计算的状态
 :::
 
 #### useContext
@@ -220,7 +219,16 @@ memo缓存组件
 
 ### 副作用
 
-副作用钩子的出现主要解决了函数组件没有生命周期的缺陷，可以替代beforeMounted、mounted、unMounted、beforeUpdated和updated这几个生命周期
+副作用钩子的出现主要解决了函数组件没有生命周期的缺陷，但对其的使用必须有熟悉的生命周期概念，才能更好地理解，下面对组件生命周期进行一个新的概述。
+
+:::primary no-icon
+框架的生命周期大概有这几个阶段（箭头表示该阶段后执行对应vue3中的生命周期钩子和react副作用hook）
+1、初始化组件函数，将组件编译执行一遍
+2、生成虚拟dom-->beforeMounted（页面更新时beforeUpdated）=>useInsertionEffect
+3、生成真实dom-->mounted（页面更新时updated）=>useLayoutEffect
+4、将dom渲染到页面-->render=>useEffect
+5、当页面被更新，重新回到2（页面卸载，跳出生命周期-->unMounted）=>三个effect return的函数
+:::
 
 #### useEffect
 
@@ -234,14 +242,12 @@ useEffect(() => {
 }, [state])
 ```
 
-当第二个参数数组中为空时，hook可作为mounted使用，页面挂载时执行一次第一个参数中的回调函数
-当第二个参数数组中填入状态（数据）时，hook作为类似vue中的watch使用，状态更新时调用第一个参数中的回调函数[(该函数的执行时间点在页面mounted时执行和后续每次页面updated时)]{.red}
-[为什么这个不是updated而是watch呢？updated和watch两者根本上都是状态(数据)改变导致页面重新渲染而触发函数，虽然触发动机略有差别，但最终结果都是一致的。显然该hook更像watch，是数据改变驱动函数执行，但其执行的时间点恰好是在updated，所以也可以当作updated来用]{.orange}
-第一个参数中的回调函数return时可以解除回调函数产生的副作用，简单的说可以将回调函数绑定的定时器在return中解除，该函数执行的时间点在下一个副作用函数到来之前，前面我们已经假设副作用函数执行的时间点在mounted和updated，那么我们可以简单认为其执行的时间点在beforeUpdate和unMounted时
+刚开始对该钩子开始的理解，以为他是生命周期钩子的替代品，但如果是这么想就大错特错
 
-:::danger no-icon
-在react18中，useEffect函数会再执行多一次，可能为了适应并发模式，可以通过关闭严格模式解决
-:::
+- useEffect是异步的（生命周期钩子是同步的会阻塞线程）
+- useEffect执行的时间点再render后,也就是4后（该时间点没有对应的钩子）
+
+下面举个例子来讨论useEffect用法
 
 ```js
 // APP
@@ -275,16 +281,20 @@ export default memo(function Index() {
 });
 ```
 
-![useEffect](https://s2.loli.net/2022/07/12/aLdFCZEsIXqwYrv.png)  
+![useEffect](https://s2.loli.net/2022/07/14/8rKJuRcoFAxBLtk.png)  
 
-通过实验我们可以得出结论（分5段）
-1、在一开始mounted时会执行一次副作用函数
-2、当我们点击+1更新数据时，会先执行return中的函数，对应生命周期beforeUpdated（或是在下一个副作用函数之前），此时值还为状态还为0,然后setState更新之后再次执行副作用函数打印出1，对应生命周期updated
-3、再次加一与2相同
-4、当我们点击卸载组件后，执行一次return中的回调函数，对应生命周期unMounted
+通过实验我们可以得出结论（分5段，若数组为空，则只有1、4、5）
+1、在一开始组件render时会执行一次副作用函数
+2、当我们点击+1更新数据时，会先执行return中的函数（阶段5），也就是在下一个副作用函数之前且数据还是旧的（并非beforeUpdated，该钩子执行时虚拟dom已经生成完毕了，数据是最新的），然后setState更新之后再次执行副作用函数打印出最新数据，对应新页面生命周期render
+3、再次加一同上
+4、当我们点击卸载组件后，执行一次return中的回调函数(阶段5)
 5、此时我们再次点击卸载组件将组件挂载，得到与1相同的结果
 
-一般可以在useEffect中进行数据请求，设置清除定时器，操作dom绑定事件等操作
+一般可以在useEffect中进行数据请求，设置和清除定时器，操作dom绑定事件等操作
+
+:::danger no-icon
+在react18中，useEffect函数会再执行多一次，可能为了适应并发模式，可以通过关闭严格模式解决
+:::
 
 #### useLayoutEffect
 
@@ -298,10 +308,15 @@ useLayoutEffect(() => {
 }, [])
 ```
 
-与useEffect不同，该hook采用同步执行，执行的时间点再beforeMounted，也就是再dom生成完毕而页面未渲染时，在此钩子中执行dom操作会比在useEffect中好，主要是为了避免浏览器再次回流重绘造成的闪屏
+该hook采用同步执行，算是真正意义上的生命周期钩子
+当第二个参数数组中为空时，hook可作为mounted使用，真实dom生成但页面还没渲染时执行一次第一个参数中的回调函数，在此钩子中执行dom操作会比在useEffect中好，主要是为了避免浏览器再次回流重绘造成的闪屏
+当第二个参数数组中填入状态（数据）时，hook作为类似vue中的watch使用，状态更新时调用第一个参数中的回调函数[(页面首次生成真实dom时也会执行一次回调函数)]{.red}
+[为什么这个不是updated而是watch呢？updated和watch两者根本上都是状态(数据)改变导致页面重新渲染而触发函数，虽然触发动机略有差别，但最终结果都是一致的。显然该hook更像watch，是数据改变驱动函数执行，但其执行的时间点恰好是在updated，所以也可以当作updated来用]{.orange}
+第一个参数中的回调函数return时与useEffect作用相同
 
 :::warning
 该hook中的回调函数会阻塞浏览器的绘制
+因为如此，react官方更推荐使用useEffect完成网络请求更新数据等操作
 :::
 
 #### useInsertionEffect
@@ -325,7 +340,7 @@ export default function Index(){
 }
 ```
 
-该hook执行的生命周期比beforeMounted更早，也就是最早执行的副作用钩子，执行时dom还未更新，主要的运用场景时解决CSS in JS渲染中注入样式的性能问题，其他场景估计用不太到
+该hook执行时间点比useLayoutEffect更早（阶段2），也就是最早执行的副作用钩子，执行时真实dom还未更新，主要的运用场景时解决CSS in JS渲染中注入样式的性能问题，其他场景估计用不太到
 
 ### 访问dom
 
@@ -352,6 +367,10 @@ export default function hook() {
   }
 }
 ```
+
+:::info no-icon
+可以将此状态作为useCallback的依赖项，这样一来useCallback中的函数将永久性缓存，且其依赖的状态通过ref.current访问到时一直是最新的，性能优化终极方案！
+:::
 
 #### useImperativeHandle
 
