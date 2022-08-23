@@ -51,7 +51,9 @@ prismjs:
 
 # Category & Tag
 default_category: uncategorized
-category_map: # edit for Theme.shoka
+category_map:
+  程序员核心知识: core
+  react: react
 tag_map:
 
 # Date / Time format
