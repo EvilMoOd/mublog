@@ -37,7 +37,7 @@ const [state, setState] = useState(0);
 
 `state`就是响应式数据，与vue不同的是，hook需要用`setState`去重新为`state`赋值才能响应式刷新页面，`initData`则是数据初始值
 
-:::warn no-icon
+:::warning no-icon
 
 - 两次`setState`传入相同值，`state`不会更新，[特别注意，state是对象或数组时，修改state中的值再重新setState（state），视图不会更新，因为其地址相同].{red}
 - 在组件一次执行上下文中，state的值固定不变。如在SI定时器中，若直接赋值`setState(state+1)`,则会使页面一直显示1，且控制台输出state的值为0。若需要使用定时器完成此功能，则需要使用`setState((state)=>state+1)`，回调函数中的参数为先前计算的状态
