@@ -9,7 +9,7 @@ title: 框架
 
 {% links %}
 
-- site: ElementPlus
+- site: Vue
   url: https://staging-cn.vuejs.org
   desc: vue官方文档
   image: https://router.vuejs.org/logo.png
