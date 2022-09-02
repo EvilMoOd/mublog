@@ -26,8 +26,9 @@ menu:
   interview: 面筋
   algorithm: 算法
   network: 网络
-  project: 工程化
+  engineer: 工程化
   language: 语言
+  optimization: 性能优化
 
 sidebar:
   overview: 站点概览
