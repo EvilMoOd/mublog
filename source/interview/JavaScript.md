@@ -36,20 +36,23 @@ description: "本章主要包含JavaScript的基础知识，包含ES、WebAPI、
 
 +++warning undefined>=undefined、null>=null、[]==![]
 涉及隐式转换
-1、NaN>=NaN,false
-2、0>=0，true
-3、[]==false -> []==0 -> ''==0 -> 0==0 ,true
+
+1. NaN>=NaN,false
+2. 0>=0，true
+3. []==false -> []==0 -> ''==0 -> 0==0 ,true
 +++
 
 +++warning 垃圾回收
-1、标记清除：当变量进入环境时为其标记为'进入环境'，执行完毕后标记为'离开环境'，通过这样清除已经不用的变量
-2、引用计数：跟踪每个变量被使用的情况，当声明或赋值时引用count+1，如果变量的值改变则原值引用count-1，循环时回收引用次数为0的变量，但有循环引用导致内存泄漏的问题
+
+1. 标记清除：当变量进入环境时为其标记为'进入环境'，执行完毕后标记为'离开环境'，通过这样清除已经不用的变量
+2. 引用计数：跟踪每个变量被使用的情况，当声明或赋值时引用count+1，如果变量的值改变则原值引用count-1，循环时回收引用次数为0的变量，但有循环引用导致内存泄漏的问题
 +++
 
 +++warning 内存泄漏方式
-1、闭包
-2、定时器未解绑
-3、事件监听未销毁
+
+1. 闭包
+2. 定时器未解绑
+3. 事件监听未销毁
 +++
 
 +++warning 模块化AMD和CommonJs的理解
@@ -62,9 +65,10 @@ includes内部使用Number.isNaN对NaN进行检测，而indexOf无法检测NaN
 +++
 
 +++warning 箭头函数特性
-1、没有this
-2、没有prototype，故不能作为构造函数
-3、没有arguments对象
+
+1. 没有this
+2. 没有prototype，故不能作为构造函数
+3. 没有arguments对象
 +++
 
 +++warning forEach如何跳出循环
@@ -115,8 +119,9 @@ dom树构建完成时执行DOMContentLoaded，然后页面挂载时执行Window.
 ## Vue
 
 +++success Object.defineProperty有什么缺陷
-1、无法监听数组下标引起的改变
-2、需要深度遍历整个dom树为每个节点添加getter和setter
+
+1. 无法监听数组下标引起的改变
+2. 需要深度遍历整个dom树为每个节点添加getter和setter
 +++
 
 +++success Vue双向数据绑定
@@ -141,18 +146,20 @@ v-for > v-if,v-for套v-if可以用computed解决，v-if套v-for可以用template
 +++
 
 +++success vue组件通信
-1、prop（父子）
-2、emit（子传父）
-3、provide/inject（多级向下）
-4、mitt（组件间）
-5、pinia（状态仓库）
+
+1. prop（父子）
+2. emit（子传父）
+3. provide/inject（多级向下）
+4. mitt（组件间）
+5. pinia（状态仓库）
 +++
 
 +++success Vue性能优化
-1、事件代理
-2、keep-alive缓存组件
-3、组件懒加载、图片懒加载、虚拟列表
-4、防抖节流
+
+1. 事件代理
+2. keep-alive缓存组件
+3. 组件懒加载、图片懒加载、虚拟列表
+4. 防抖节流
 +++
 
 +++success nextTick的实现原理
@@ -181,17 +188,19 @@ https://juejin.cn/post/6955636911214067720#heading-1
 
 +++info React性能优化
 主要方向有以下几个
-1、减少组件重新渲染（memo）
-2、缓存状态和函数（useMemo、useCallback）
-3、长列表懒加载（虚拟列表），组件懒加载、图片懒加载
+
+1. 减少组件重新渲染（memo）
+2. 缓存状态和函数（useMemo、useCallback）
+3. 长列表懒加载（虚拟列表），组件懒加载、图片懒加载
 +++
 
 +++info React组件通信方式
-1、props（父传子、子传父[回调函数]）
-2、useImperativeHandle（子传父）
-3、Context（多级往下）
-4、mitt（两个组件间）
-5、mobx、recoil（状态仓库）
+
+1. props（父传子、子传父[回调函数]）
+2. useImperativeHandle（子传父）
+3. Context（多级往下）
+4. mitt（两个组件间）
+5. mobx、recoil（状态仓库）
 +++
 
 ## 框架综合

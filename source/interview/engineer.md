@@ -6,13 +6,14 @@ description: "本章主要记录npm、yarn、pnpm包管理工具vite、webpack�
 ## webpack
 
 +++info 打包构建优化
-1、压缩代码
-2、开启TreeShanking
-3、小图转base64
-4、开启多线程
-5、splitChunks抽离公共文件和第三方资源包
-6、sourceMap优化，如开发环境下用eval-cheap-module-source-map，生产环境直接none
-7、合理配置hash，ts、js代码一般用chunkHash，css、assets的静态资源一般用contentHash
+
+1. 压缩代码
+2. 开启TreeShanking
+3. 小图转base64
+4. 开启多线程
+5. splitChunks抽离公共文件和第三方资源包
+6. sourceMap优化，如开发环境下用eval-cheap-module-source-map，生产环境直接none
+7. 合理配置hash，ts、js代码一般用chunkHash，css、assets的静态资源一般用contentHash
 +++
 
 +++info loader和plugin区别
