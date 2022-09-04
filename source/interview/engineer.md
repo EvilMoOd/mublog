@@ -9,7 +9,7 @@ description: "本章主要记录npm、yarn、pnpm包管理工具vite、webpack�
 ![webpack](https://user-images.githubusercontent.com/26785201/89747816-fe344280-daf2-11ea-820a-6a1a99e34f14.png)
 +++
 +++info webpack热更新
-![webpack](https://zhuanlan.zhihu.com/p/30669007)
+(https://zhuanlan.zhihu.com/p/30669007)
 +++
 
 +++info 打包构建优化

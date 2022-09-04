@@ -118,8 +118,7 @@ try catch捕获函数，在特定条件下throw error
 
 ### 原型、原型链、继承、this
 
-+++warning
-JS 中 this 的五种情况
++++warning JS 中 this 的五种情况
 
 1. 作为普通函数执行时，this指向window。
 2. 当函数作为对象的方法被调用时，this就会指向该对象。
