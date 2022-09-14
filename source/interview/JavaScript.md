@@ -108,6 +108,85 @@ try catch捕获函数，在特定条件下throw error
 高阶组件主要是为了复用逻辑降低代码耦合度，和面向对象编程类似，封装axios再封装成api就类似这种思想
 +++
 
++++warning a==1 && a==2 && a==3
+
+```js
+// 第一种方法
+var a = {
+  i: 1,
+  toString: function () {
+    return a.i++;
+  },
+};
+
+// 第二种方法
+var a = [1, 2, 3];
+a.join = a.shift;
+
+// 第三种方法
+var val = 0;
+Object.defineProperty(window, 'a', {
+  get: function () {
+    return ++val;
+  },
+});
+
+```
+
++++
+
++++warning 立即执行函数作用域
+
+```JS
+var b = 10;
+(function b() {
+   // 内部作用域，会先去查找是有已有变量b的声明，有就直接赋值20，确实有了呀。发现了具名函数 function b(){}，拿此b做赋值；
+   // IIFE的函数无法进行赋值（内部机制，类似const定义的常量），所以无效。
+  // （这里说的“内部机制”，想搞清楚，需要去查阅一些资料，弄明白IIFE在JS引擎的工作方式，堆栈存储IIFE的方式等）
+    b = 20;
+    console.log(b); // [Function b]
+    console.log(window.b); // 10，不是20
+})();
+```
+
+严格模式下，会报错"Uncaught TypeError: Assignment to constant variable."
++++
+
++++warning call 和 apply 的区别是什么，哪个性能更好一些
+
++++
+
++++warning 代码输出
+
+```JS
+function changeObjProperty(o) {
+  o.siteUrl = "http://www.baidu.com"
+  o = new Object()
+  o.siteUrl = "http://www.google.com"
+} 
+let webSite = new Object();
+changeObjProperty(webSite);
+console.log(webSite.siteUrl);
+
+// 解答
+// 这里把o改成a
+// webSite引用地址的值copy给a了
+function changeObjProperty(a) {
+  // 改变对应地址内的对象属性值
+  a.siteUrl = "http://www.baidu.com"
+  // 变量a指向新的地址 以后的变动和旧地址无关
+  a = new Object()
+  a.siteUrl = "http://www.google.com"
+  a.name = 456
+} 
+var webSite = new Object();
+webSite.name = '123'
+changeObjProperty(webSite);
+console.log(webSite); // {name: 123, siteUrl: 'http://www.baidu.com'}
+```
+
++++
+
 ### ES6
 
 ### 作用域、作用域链、闭包、预编译
