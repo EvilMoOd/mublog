@@ -7,6 +7,14 @@ description: "本章主要包含JavaScript的基础知识，包含ES、WebAPI、
 
 ### 基础
 
++++warning 数据类型检测的四种方法
+
+1. typeof（缺点：数组和null会被判定为object）
+2. instanceof（缺点：只能判断引用类型）
+3. Object.prototype.toString.call()
+4. constructor（缺点：对象原型改变时无法正确检测类型）
++++
+
 +++warning 隐式类型转换
 ![type](https://yck-1254263422.cos.ap-shanghai.myqcloud.com/blog/2019-06-01-043719.png)
 +++
@@ -28,6 +36,46 @@ null表示”没有对象”，即该处不应该有值。典型用法是：
 1. 作为函数的参数，表示该函数的参数不是对象。
 2. 作为对象原型链的终点。
 
++++
+
++++warning 类型转换规则
+
+1. 首先会判断两者类型是否相同，相同的话就比较两者的大小；
+2. 类型不相同的话，就会进行类型转换；
+3. 会先判断是否在对比 null 和 undefined，是的话就会返回 true
+4. 判断两者类型是否为 string 和 number，是的话就会将字符串转换为 number
+5. 判断其中一方是否为 boolean，是的话就会把 boolean 转为 number 再进行判断
+6. 判断其中一方是否为 object 且另一方为 string、number 或者 symbol，是的话就会把 object 转为原始类型再进行判断
+
+`其他值转字符串`
+
+- Null 和 Undefined 类型 ，null 转换为 "null"，undefined 转换为 "undefined"，
+- Boolean 类型，true 转换为 "true"，false 转换为 "false"。
+- Number 类型的值直接转换，不过那些极小和极大的数字会使用指数形式。
+- Symbol 类型的值直接转换，但是只允许显式强制类型转换，使用隐式强制类型转换会产生错误。
+- 对普通对象来说，除非自行定义 toString() 方法，否则会调用 toString()（Object.prototype.toString()）来返回内部属性 [[Class]] 的值，如"[object Object]"。如果对象有自己的 toString() 方法，字符串化时就会调用该方法并使用其返回值。
+
+`其他值转数字`
+
+- Undefined 类型的值转换为 NaN。
+- Null 类型的值转换为 0。
+- Boolean 类型的值，true 转换为 1，false 转换为 0。
+- String 类型的值转换如同使用 Number() 函数进行转换，如果包含非数字值则转换为 NaN，空字符串为 0。
+- Symbol 类型的值不能转换为数字，会报错。
+- 对象（包括数组）会首先被转换为相应的基本类型值，如果返回的是非数字的基本类型值，则再遵循以上规则将其强制转换为数字。
+
+为了将值转换为相应的基本类型值，抽象操作 ToPrimitive 会首先（通过内部操作 DefaultValue）检查该值是否有valueOf()方法。如果有并且返回基本类型值，就使用该值进行强制类型转换。如果没有就使用 toString() 的返回值（如果存在）来进行强制类型转换。
+
+如果 valueOf() 和 toString() 均不返回基本类型值，会产生 TypeError 错误。
+
+`其他值转布尔值`
+以下这些是假值：
+
+- undefined
+- null
+- false
+- +0、-0 和 NaN
+- ""
 +++
 
 +++warning undefined>=undefined、null>=null、[]==![]
@@ -91,9 +139,10 @@ includes内部使用Number.isNaN对NaN进行检测，而indexOf无法检测NaN
 
 +++warning 箭头函数特性
 
-1. 没有this
+1. 没有this，call()、apply()、bind()等方法不能改变箭头函数中this的指向
 2. 没有prototype，故不能作为构造函数
 3. 没有arguments对象
+4. 箭头函数不能用作Generator函数，不能使用yeild关键字
 +++
 
 +++warning forEach如何跳出循环
@@ -187,6 +236,80 @@ console.log(webSite); // {name: 123, siteUrl: 'http://www.baidu.com'}
 
 +++
 
++++warning 设计一个LRU
+
+```js
+class LRUCache {
+  // Least Recently Used最近最少使用算法
+  // get的时候将原来有的放到第一位，put的时候如果size满了则淘汰掉最久未使用的
+  constructor(size) {
+    this.size = size;
+    this.cache = new Map();
+  }
+  get(key) {
+    const hasKey = this.cache.has(key);
+    if (!hasKey) {
+      return -1;
+    } else {
+      const val = this.cache.get(key);
+      this.cache.delete(key);
+      this.cache.set(key, val);
+      return val;
+    }
+  }
+  put(key, value) {
+    const hasKey = this.cache.has(key);
+    if (hasKey) {
+      this.cache.delete(key);
+    }
+    this.cache.set(key, value);
+    if (this.cache.size > this.size) {
+      this.cache.delete(this.cache.keys().next().value);
+    }
+  }
+}
+
+```
+
++++
+
++++warning 设计一个LRU
+
+```js
+class LRUCache {
+  // Least Recently Used最近最少使用算法
+  // get的时候将原来有的放到第一位，put的时候如果size满了则淘汰掉最久未使用的
+  constructor(size) {
+    this.size = size;
+    this.cache = new Map();
+  }
+  get(key) {
+    const hasKey = this.cache.has(key);
+    if (!hasKey) {
+      return -1;
+    } else {
+      const val = this.cache.get(key);
+      this.cache.delete(key);
+      this.cache.set(key, val);
+      return val;
+    }
+  }
+  put(key, value) {
+    const hasKey = this.cache.has(key);
+    if (hasKey) {
+      this.cache.delete(key);
+    }
+    this.cache.set(key, value);
+    if (this.cache.size > this.size) {
+      this.cache.delete(this.cache.keys().next().value);
+    }
+  }
+}
+
+```
+
++++
+
 ### ES6
 
 ### 作用域、作用域链、闭包、预编译
@@ -276,7 +399,8 @@ vue2中diff算法对虚拟dom进行全量对比，而3中新增了静态标记�
 
 +++success v-if和v-show区别、v-if和v-for执行顺序
 v-if控制dom有无，v-show控制节点属性display:none
-v-for > v-if,v-for套v-if可以用computed解决，v-if套v-for可以用template
+vue2中v-for > v-if,v-for套v-if可以用computed解决，v-if套v-for可以用template
+vue3中v-if > v-for
 +++
 
 +++success vue组件通信
@@ -301,6 +425,18 @@ nextTick会在dom更新循环结束后执行延迟回调，主要使用了任务
 Promise->MutationObserver->setImmediate->setTimeout
 +++
 
++++success Vue 中的 computed 是如何实现的
+computed本身是通过代理的方式代理到组件实例上的，所以读取计算属性的时候，执行的是一个内部的getter，而不是用户定义的方法。
+
+computed内部实现了一个惰性的watcher，在实例化的时候不会去求值，其内部通过dirty属性标记计算属性是否需要重新求值。当computed依赖的任一状态（不一定是return中的）发生变化，都会通知这个惰性watcher，让它把dirty属性设置为true。所以，当再次读取这个计算属性的时候，就会重新去求值。
++++
+
++++success v-if、v-show、v-html 的原理是什么，它是如何封装的？
+v-if会调用addIfCondition方法，生成vnode的时候会忽略对应节点，render的时候就不会渲染
+v-show会生成vnode，render的时候也会渲染成真实节点，只是在render过程中会在节点的属性中修改show属性值，也就是常说的display
+v-html会先移除节点下的所有节点，调用html方法，通过addProp添加innerHTML属性，归根结底还是设置innerHTML为v-html的值
++++
+
 ## React
 
 +++info React 虚拟DOM diff算法原理（keys 的作用是什么）
@@ -316,6 +452,10 @@ keys一般出现在for循环中，且每个for循环的keys是独立的，keys�
 
 +++info React的事件代理机制（react17事件合成机制）
 React中的事件代理并非和原生一样（为了解决跨浏览器兼容），而是采用合成事件（SyntheticEvent），将事件绑定冒泡到根节点（16是document）统一管理
+
+实现合成事件主要为了：
+解决浏览器兼容问题，并且支持跨端开发
+对于原生浏览器事件来说绑定一个事件则创建一个事件对象，如果有多个事件监听则会分配很多事件对象，造成高额的内存分配问题，合成事件则采用事件池专门管理事件的创建与销毁
 具体可以看这条链接
 https://juejin.cn/post/6955636911214067720#heading-1
 +++
@@ -359,7 +499,15 @@ Fiber Reconciler（react ）执行过程分为2个阶段：
 Fiber树：React 在 render 第一次渲染时，会通过 React.createElement 创建一颗 Element 树，可以称之为 Virtual DOM Tree，由于要记录上下文信息，加入了 Fiber，每一个 Element 会对应一个 Fiber Node，将 Fiber Node 链接起来的结构成为 Fiber Tree。Fiber Tree 一个重要的特点是链表结构，将递归遍历编程循环遍历，然后配合 requestIdleCallback API, 实现任务拆分、中断与恢复。
 
 从Stack Reconciler到Fiber Reconciler，源码层面其实就是干了一件递归改循环的事情
+所以 React 通过Fiber 架构，让这个执行过程变成可被中断。“适时”地让出 CPU 执行权，除了可以让浏览器及时地响应用户的交互，还有其他好处:
+分批延时对DOM进行操作，避免一次性操作大量 DOM 节点，可以得到更好的用户体验；
+给浏览器一点喘息的机会，它会对代码进行编译优化（JIT）及进行热代码优化，或者对 reflow 进行修正。
 
+核心思想：Fiber 也称协程或者纤程。它和线程并不一样，协程本身是没有并发或者并行能力的（需要配合线程），它只是一种控制流程的让出机制。让出 CPU 的执行权，让 CPU 能在这段时间执行其他的操作。渲染的过程可以被中断，可以将控制权交回浏览器，让位给高优先级的任务，浏览器空闲后再恢复渲染。
++++
+
++++info React setState是同步还是异步？
+setState会根据场景的不同来决定，通过isBathingUpdates来判断setState是先存进state队列还是直接更新。在react可以控制的地方，如生命周期事件和合成事件，都会走合并操作延迟更新，而无法控制的地方，如原生事件中就走的同步操作
 +++
 
 +++info React性能优化
