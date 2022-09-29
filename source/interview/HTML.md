@@ -14,6 +14,7 @@ description: "本模块主要包含HTML、网络和浏览器三大块知识，�
 
 1. 利于SEO
 2. 提高代码可读性
+
 +++
 
 +++danger  说一下 HTML5 drag api
@@ -47,6 +48,7 @@ href 是 Hypertext Reference 的缩写，指向网络资源所在位置，建立
 - iframe 会阻塞主页面的 onload 事件
 - 无法被一些搜索引擎索识别
 - 会产生很多页面，不容易管理
+
 +++
 
 ## 网络
@@ -73,6 +75,16 @@ DHCP协议： 动态主机配置协议，是一种让系统得以连接到网络
 1. 避免请求：采用强缓存和协商缓存，DNS缓存，CDN负载均衡
 2. 减少请求：1.资源的懒加载 2.合并请求，如将静态资源合并成一个大文件 3.代理重定向
 3. 压缩：1.图片视频等资源进行有损压缩 2.代码文本类进行无损压缩（Gzip）
+
++++
+
++++warning HTTP响应报文组成
+响应报文由四部分组成（响应行 + 响应头 + 空行 + 响应体）
+
+状态行：HTTP 版本 + 空格 + 状态码 + 空格 + 状态码描述 + 回车符（CR） + 换行符（LF）
+响应头：字段名 + 冒号 + 值 + 回车符 + 换行符
+空行：回车符 + 换行符
+响应体：由用户自定义添加，如 post 的 body 等
 +++
 
 #### HTTP各个版本
@@ -89,6 +101,7 @@ DHCP协议： 动态主机配置协议，是一种让系统得以连接到网络
 
 1. 缓存处理新增 E-Tag、If-None-Match 之类的缓存来来控制缓存
 2. 长连接，可以在一个 TCP 连接上发送多个请求和响应，但存在队头阻塞问题
+
 +++
 
 +++warning 谈谈HTTP2中的多路复用，为什么1.1中不能使用
@@ -183,11 +196,15 @@ UDP是面向无连接的协议，一对多、不可靠、面向报文
 ### 机制
 
 +++info 渲染机制、回流与重绘、如何避免
+![渲染](https://user-images.githubusercontent.com/17002181/126033732-d5002255-1c88-4dee-9371-da166aacdca9.png)
+浏览器渲染大致分为四个阶段，其中在解析 HTML 后，会依次进入 Layout 和 Paint 阶段。样式或节点的更改，以及对布局信息的访问等，都有可能导致重排和重绘。而重排和重绘的过程在主线程中进行，这意味着不合理的重排重绘会导致渲染卡顿，用户交互滞后等性能问题。
 
-1. 浏览器采用流式布局模型（Flow Based Layout）；
-2. 浏览器会把 HTML 解析成 DOM，把 CSS 解析成 CSSOM,DOM 和 CSSOM 合并就产生了渲染树（Render Tree）；
-3. 有了 RenderTree，我们就知道了所有节点的样式，然后计算他们在页面上的大小和位置，最后把节点绘制到页面上；
-4. 由于浏览器使用流式布局，对 Render Tree 的计算通常只需要遍历一次就可以完成，但 table 及其内部元素除外，他们可能需要多次计算，通常要花 3 倍于同等元素的时间，这也是为什么要避免使用 table 布局的原因之一；
+1. Parse HTML：相关引擎分别解析文档和样式表，生成 DOM 和 CSSOM ，最终合成为 Render 树。 浏览器采用流式布局模型（Flow Based Layout）
+2. Layout：浏览器通过 Render 树中的信息，以递归的形式计算出每个节点的尺寸大小和在页面中的具体位置。
+3. Paint：浏览器将 Render 树中的节点转换成在屏幕上绘制实际像素的指令，这个过程发生在多个图层上。
+4. 浏览器将所有层按照一定顺序合并为一个图层并绘制在屏幕上。
+
+若DOM或CSSOM被修改会导致浏览器重复执行Layout和Paint过程
 
 `回流`
 布局或者几何属性改变时触发回流。回流是影响浏览器性能的关键因素，因为其变化涉及到部分页面（或是整个页面）的布局更新。一个元素的回流可能会导致其素有子元素以及 DOM 中紧随其后的节点、祖先节点元素的随后的回流。大部分的回流将导致页面的重新渲染。回流必定会发生重绘，重绘不一定会引发回流。
@@ -198,21 +215,21 @@ UDP是面向无连接的协议，一对多、不可靠、面向报文
 
 `CSS`
 
-- 使用 transform 代替 top
+- 使用 transform 代替 top，开启硬件加速
 - 使用 visibility 替换 display: none，前者引起重绘，后者引发回流
 - 避免使用 table 布局
 - 尽可能在 DOM 树的最末端改变 class
 - 避免设置多层内联样式，CSS 选择符从右往左匹配查找，避免节点层级过多
 - 将动画效果应用到 position 属性为 absolute 或 fixed 的元素上，避免影响其他元素的布局
 - 避免使用 CSS 表达式，可能会引发回流
-- CSS 硬件加速
 
 `Javascript`
 
 - 避免频繁操作样式，修改 class 最好
-- 避免频繁操作 DOM，合并多次修改为一次
-- 避免频繁读取会引发回流/重绘的属性，将结果缓存
+- 避免频繁操作 DOM，合并多次修改为一次(虚拟DOM、DocumentFragment)
+- 避免频繁读取会引发回流/重绘的属性，将结果缓存（clientTop）
 - 对用户改变窗口的操作进行防抖处理
+
 +++
 
 +++info 说下进程、线程和协程
@@ -252,7 +269,11 @@ UDP是面向无连接的协议，一对多、不可靠、面向报文
 4. 如果使用的是 HTTPS 协议，在通信前还存在 TLS 的一个四次握手的过程。首先由客户端向服务器端发送使用的协议的版本号、一个随机数和可以使用的加密方法。服务器端收到后，确认加密的方法，也向客户端发送一个随机数和自己的数字证书。客户端收到后，首先检查数字证书是否有效，如果有效，则再生成一个随机数，并使用证书中的公钥对随机数加密，然后发送给服务器端，并且还会提供一个前面所有内容的 hash 值供服务器端检验。服务器端接收后，使用自己的私钥对数据解密，同时向客户端发送一个前面所有内容的 hash 值供客户端检验。这个时候双方都有了三个随机数，按照之前所约定的加密方法，使用这三个随机数生成一把会话秘钥，以后双方通信前，就使用这个会话秘钥对数据进行加密后再传输。
 5. 此时， Web 服务器提供资源服务，客户端开始下载资源。
 
+![HTTPS握手](https://user-images.githubusercontent.com/17002181/131222941-02fc347d-32c1-41ff-80b1-4f47a23f833f.png)
+
 `渲染：`
+
+![渲染](https://user-images.githubusercontent.com/15681693/131242132-b299c8ec-1c61-4dc0-86b8-62b3bbdae612.png)
 
 1. 解析
 解析收到的文档，根据文档构建一颗DOM树，DOM 树是由 DOM元素及属性节点组成的。
@@ -281,12 +302,38 @@ UDP是面向无连接的协议，一对多、不可靠、面向报文
 +++
 
 +++info 同源策略以及如何跨域
-同源策略：协议域名端口相同才可以发送请求
+同源策略：协议域名端口相同才可以成功发送请求(跨域请求可以发出和响应，但不成功),跨域是浏览器的安全特性，与其他无关
 跨域：
 
 1. CORS：服务端设置Access-Control-Allow-Origin
-2. 代理：设置代理服务器
-3. JSONP：通过script标签get请求某个api
+不会触发预检请求的称为简单请求。当请求满足以下条件时就是一个简单请求：
+请求方法：GET、HEAD、POST。
+请求头：Accept、Accept-Language、Content-Language、Content-Type。
+Content-Type 仅支持：application/x-www-form-urlencoded、multipart/form-data、text/plain。
+当一个请求不满足以上简单请求的条件时，浏览器会自动向服务端发送一个 OPTIONS 请求，通过服务端返回的 Access-Control-Allow-*判定请求是否被允许。
+CORS 引入了以下几个以 Access-Control-Allow-* 开头：
+Access-Control-Allow-Origin 表示允许的来源
+Access-Control-Allow-Methods 表示允许的请求方法
+Access-Control-Allow-Headers 表示允许的请求头
+Access-Control-Allow-Credentials 表示允许携带认证信息
+当请求符合响应头的这些条件时，浏览器才会发送并响应正式的请求。
+2. 反向代理：依赖同源的服务端对请求做一个转发处理，将请求从跨域请求转换成同源请求。反向代理的实现方式为在页面同域下配置一套反向代理服务，页面请求同域的服务端，服务端请求上游的实际的服务端，之后将结果返回给前端。
+3. JSONP：通过script标签get请求某个api，不同于上面两个方法，该方法需要前后端配合实现
+
+非常用：
+
+1. postMessage：即在两个 origin 下分别部署一套页面 A 与 B，A 页面通过 iframe 加载 B 页面并监听消息，B 页面发送消息。
+2. window.name：主要是利用 window.name 页面跳转不改变的特性实现跨域，即 iframe 加载一个跨域页面，设置 window.name，跳转到同域页面，可以通过 $('iframe').contentWindow.name 拿到跨域页面的数据。
+3. document.domain:可将相同一级域名下的子域名页面的 document.domain 设置为一级域名实现跨域。可将同域不同端口的 document.domain 设置为同域名实现跨域（端口被置为 null）。
+
+另外：
+
+1. LocalStorage / SessionStorage 跨域
+LocalStorage 和 SessionStorage 同样受到同源策略的限制。而跨域读写的方式也可以使用前文提到的 postMessage。
+2. 跨域与监控
+前端项目在统计前端报错监控时会遇到上报的内容只有 Script Error 的问题。这个问题也是由同源策略引起。在` <script> `标签上添加 crossorigin="anonymous" 并且返回的 JS 文件响应头加上 Access-Control-Allow-Origin: * 即可捕捉到完整的错误堆栈。
+3. 跨域与图片
+前端项目在图片处理时可能会遇到图片绘制到 Canvas 上之后却不能读取像素或导出 base64 的问题。这个问题也是由同源策略引起。解决方式和上文相同，给图片添加 crossorigin="anonymous" 并在返回的图片文件响应头加上 Access-Control-Allow-Origin: * 即可解决。
 +++
 
 +++info 如何实现浏览器标签页之间的通信
@@ -298,6 +345,7 @@ UDP是面向无连接的协议，一对多、不可靠、面向报文
 `发布订阅者`
 
 1. 调用webWorker的postMessage
+
 +++
 
 +++info 讲讲CDN负载均衡
@@ -310,6 +358,7 @@ CDN访问过程：
 4. LocalDns 得到域名记录后,向智能调度 DNS 查询域名的 ip 地址，智能调度 DNS 根据一定的算法和策略(比如静态拓扑，容量等),将最适合的 CDN 节点 ip 地址回应给 LocalDns
 5. LocalDns 将得到的域名 ip 地址，回应给 用户端，用户得到域名 ip 地址后，访问站点服务器
 6. CDN 节点服务器应答请求，将内容返回给客户端.(缓存服务器一方面在本地进行保存，以备以后使用，二方面把获取的数据返回给客户端，完成数据服务过程)
+
 +++
 
 +++info localhost:3000 与 localhost:5000 的 cookie 信息是否共享
@@ -324,6 +373,7 @@ CDN访问过程：
 4. 执行过程无阻塞
 5. 相比 XMLHttpRequest 对象发送 GET 请求，性能上更好
 6. GIF的最低合法体积最小（最小的BMP文件需要74个字节，PNG需要67个字节，而合法的GIF，只需要43个字节）
+
 +++
 
 +++info localhost:3000 与 localhost:5000 的 cookie 信息是否共享
@@ -340,11 +390,14 @@ CDN访问过程：
 4. 对用户唯一身份uid进行限制和校验。id的格式、时效性
 5. 前后端协议采用二进制的方式进行交互或者协议采用签名机制
 6. 人机验证码、短信、滑块验证之类的
+
 +++
 
 +++danger cookie 和 token 都存放在 header 中，为什么不会劫持 token？
-1、token不是防止XSS的，而是为了防止CSRF的
-2、CSRF攻击的原因是浏览器会自动带上cookie，而浏览器不会自动带上token
+
+1. token不是防止XSS的，而是为了防止CSRF的
+2. CSRF攻击的原因是浏览器会自动带上cookie，而浏览器不会自动带上token
+
 +++
 
 +++danger 介绍token的实现
@@ -353,6 +406,11 @@ CDN访问过程：
 2. 后端利用secret和加密算法(如：HMAC-SHA256)对payload(如账号密码)生成一个字符串(token)返回前端
 3. 前端每次request在header中带上token
 4. 4.后端用同样的算法解密
+
++++
+
++++danger 常见的网络攻击
+参考站内贴子`网络攻击`(https://evilmood.github.io/mublog/core/%E7%BD%91%E8%B7%AF%E6%94%BB%E5%87%BB/)
 +++
 
 ### 存储
@@ -371,9 +429,12 @@ CDN访问过程：
 
 1. 大小不能超过4KB
 2. cookie被人拦截后可以直接使用
+
 +++
 
 +++success 强缓存和协商缓存
+
+![缓存](https://user-images.githubusercontent.com/13888962/125894860-a0b9eecd-03b6-49ce-9612-9705b1fb6e78.png)
 浏览器请求时会执行强缓存，若本地没有缓存则会发送请求进行协商缓存
 `强缓存：`
 通过expire记录过期日期，http1.1中新增cache-control克服请求头限制，且优先级高于expire
@@ -396,4 +457,16 @@ Push Cache
 Push Cache（推送缓存）是 HTTP/2 中的内容，当以上三种缓存都没有命中时，它才会被时候用。它只在会话（Session）中存在，一旦会话结束就被释放，并且缓存时间也很短暂（大约 5 分钟）。
 
 (https://juejin.cn/post/6844903747357769742?utm_source=gold_browser_extension)
+
+优先级 Service Worker > memory cache > disk cache > Push Cache
+
+最佳实践：资源尽可能命中强缓存，且在资源文件更新时保证用户使用到最新的资源文件
+强缓存只会命中相同命名的资源文件。
+在资源文件上加 hash 标识（webpack 可在打包时在文件名上带上）。
+通过更新资源文件名来强制更新命中强缓存的资源。
++++
+
++++success no-cache和no-store 的区别。
+前者可以在客户端存储资源，但每次都必须去服务端做新鲜度校验，决定从服务端获取新资源（200）还是作缓存（304）处理
+后者为不做缓存处理
 +++
