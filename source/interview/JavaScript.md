@@ -7,12 +7,15 @@ description: "本章主要包含JavaScript的基础知识，包含ES、WebAPI、
 
 ### 基础
 
+#### 数据类型
+
 +++warning 数据类型检测的四种方法
 
 1. typeof（缺点：数组和null会被判定为object）
 2. instanceof（缺点：只能判断引用类型）
 3. Object.prototype.toString.call()
 4. constructor（缺点：对象原型改变时无法正确检测类型）
+
 +++
 
 +++warning 隐式类型转换
@@ -76,6 +79,7 @@ null表示”没有对象”，即该处不应该有值。典型用法是：
 - false
 - +0、-0 和 NaN
 - ""
+
 +++
 
 +++warning undefined>=undefined、null>=null、[]==![]
@@ -84,57 +88,33 @@ null表示”没有对象”，即该处不应该有值。典型用法是：
 1. NaN>=NaN,false
 2. 0>=0，true
 3. []==false -> []==0 -> ''==0 -> 0==0 ,true
-+++
 
-+++warning 严格模式
-`规则：`
-
-- 变量必须声明后再使用
-- 函数的参数不能有同名属性，否则报错
-- 不能使用with语句
-- 不能对只读属性赋值，否则报错
-- 不能使用前缀0表示八进制数，否则报错
-- 不能删除不可删除的属性，否则报错
-- 不能删除变量delete prop，会报错，只能删除属性delete global[prop]
-- eval不会在它的外层作用域引入变量
-- eval和arguments不能被重新赋值
-- arguments不会自动反映函数参数的变化
-- 不能使用arguments.callee
-- 不能使用arguments.caller
-- 禁止this指向全局对象
-- 不能使用fn.caller和fn.arguments获取函数调用的堆栈
-- 增加了保留字（比如protected、static和interface）
-
-`目的：`
-
-- 消除Javascript语法的一些不合理、不严谨之处，减少一些怪异行为;
-- 消除代码运行的一些不安全之处，保证代码运行的安全；
-- 提高编译器效率，增加运行速度；
-- 为未来新版本的Javascript做好铺垫。
-+++
-
-+++warning 垃圾回收
-
-1. 标记清除：当变量进入环境时为其标记为'进入环境'，执行完毕后标记为'离开环境'，通过这样清除已经不用的变量
-2. 引用计数：跟踪每个变量被使用的情况，当声明或赋值时引用count+1，如果变量的值改变则原值引用count-1，循环时回收引用次数为0的变量，但有循环引用导致内存泄漏的问题
-
-更具体可查看相关文章
-+++
-
-+++warning 内存泄漏方式
-
-1. 闭包
-2. 定时器未解绑
-3. 事件监听未销毁
-+++
-
-+++warning 模块化AMD和CommonJs的理解
-CommonJS加载模块是同步的，适用nodeJs，因为本地加载很快，拷贝输出，可修改引用值，运行时
-AMD规范则是异步步加载模块，允许指定回调函数，适用浏览器，网络请求不一定很快，引用输出，只读，编译时
 +++
 
 +++warning includes和indexOf差别
 includes内部使用Number.isNaN对NaN进行检测，而indexOf无法检测NaN
++++
+
+#### 核心
+
++++warning new操作符做了什么
+
+1. 在内存中创建一个新对象。
+2. 将新对象内部的 __proto__ 赋值为构造函数的 prototype 属性。
+3. 将构造函数内部的 this 被赋值为新对象（即 this 指向新对象）。
+4. 执行构造函数内部的代码（给新对象添加属性）。
+5. 如果构造函数返回非空对象，则返回该对象。否则返回 this。
++++
+
++++warning 讲讲JS继承方式
+
+1. 原型链继承
+2. 构造函数继承
+3. 组合继承
+4. 寄生组合继承
+5. class继承
+
+具体原理、优缺点、实现可搜索相关贴子或教材
 +++
 
 +++warning 箭头函数特性
@@ -143,6 +123,7 @@ includes内部使用Number.isNaN对NaN进行检测，而indexOf无法检测NaN
 2. 没有prototype，故不能作为构造函数
 3. 没有arguments对象
 4. 箭头函数不能用作Generator函数，不能使用yeild关键字
+
 +++
 
 +++warning forEach如何跳出循环
@@ -151,16 +132,26 @@ try catch捕获函数，在特定条件下throw error
 
 +++warning [1,2,3].map(parseInt)
 [1,NaN,NaN]
+parseInt(value,index)
+parseInt(1,0)、parseInt(2,1)、parseInt(3,2)
 +++
 
 +++warning 高阶函数
-高阶组件主要是为了复用逻辑降低代码耦合度，和面向对象编程类似，封装axios再封装成api就类似这种思想
+高阶函数是指传入参数为函数（数组的map、reduce、forEach）或输出参数为函数（手写add）
 +++
 
 +++warning a==1 && a==2 && a==3
 
 ```js
-// 第一种方法
+// 拦截法
+var val = 0;
+Object.defineProperty(window, 'a', {
+  get: function () {
+    return ++val;
+  },
+});
+
+// 重写toString（node环境无效）
 var a = {
   i: 1,
   toString: function () {
@@ -168,17 +159,9 @@ var a = {
   },
 };
 
-// 第二种方法
+// 重写数组方法
 var a = [1, 2, 3];
 a.join = a.shift;
-
-// 第三种方法
-var val = 0;
-Object.defineProperty(window, 'a', {
-  get: function () {
-    return ++val;
-  },
-});
 
 ```
 
@@ -202,7 +185,7 @@ var b = 10;
 +++
 
 +++warning call 和 apply 的区别是什么，哪个性能更好一些
-
+call更好一些，因为apply多了一次将数组解构的操作
 +++
 
 +++warning 代码输出
@@ -273,41 +256,92 @@ class LRUCache {
 
 +++
 
-+++warning 设计一个LRU
+#### 概念机制
 
-```js
-class LRUCache {
-  // Least Recently Used最近最少使用算法
-  // get的时候将原来有的放到第一位，put的时候如果size满了则淘汰掉最久未使用的
-  constructor(size) {
-    this.size = size;
-    this.cache = new Map();
-  }
-  get(key) {
-    const hasKey = this.cache.has(key);
-    if (!hasKey) {
-      return -1;
-    } else {
-      const val = this.cache.get(key);
-      this.cache.delete(key);
-      this.cache.set(key, val);
-      return val;
-    }
-  }
-  put(key, value) {
-    const hasKey = this.cache.has(key);
-    if (hasKey) {
-      this.cache.delete(key);
-    }
-    this.cache.set(key, value);
-    if (this.cache.size > this.size) {
-      this.cache.delete(this.cache.keys().next().value);
-    }
-  }
-}
++++warning 严格模式
+`规则：`
 
-```
+- 变量必须声明后再使用
+- 函数的参数不能有同名属性，否则报错
+- 不能使用with语句
+- 不能对只读属性赋值，否则报错
+- 不能使用前缀0表示八进制数，否则报错
+- 不能删除不可删除的属性，否则报错
+- 不能删除变量delete prop，会报错，只能删除属性delete global[prop]
+- eval不会在它的外层作用域引入变量
+- eval和arguments不能被重新赋值
+- arguments不会自动反映函数参数的变化
+- 不能使用arguments.callee
+- 不能使用arguments.caller
+- 禁止this指向全局对象
+- 不能使用fn.caller和fn.arguments获取函数调用的堆栈
+- 增加了保留字（比如protected、static和interface）
 
+`目的：`
+
+- 消除Javascript语法的一些不合理、不严谨之处，减少一些怪异行为;
+- 消除代码运行的一些不安全之处，保证代码运行的安全；
+- 提高编译器效率，增加运行速度；
+- 为未来新版本的Javascript做好铺垫。
+
++++
+
++++warning 内存泄漏
+
+内存泄漏是指，应当被回收的对象没有被正常回收，变成常驻老生代的对象，导致内存占用越来越高。内存泄漏会导致应用程序速度变慢、高延时、崩溃等问题。
+
+内存生命周期包括
+
+1. 分配：按需分配内存。
+2. 使用：读写已分配的内存。
+3. 释放：释放不再需要的内存。
+
+常见原因
+
+1. 全局变量没有手动回收。
+2. 函数变量闭包
+3. 使用 JavaScript 对象来做缓存，且不设置过期策略和对象大小控制。
+4. 定时器未解绑
+5. 事件监听未销毁
+
++++
+
++++warning 垃圾回收
+
+V8 中有两个垃圾收集器。主要的 GC 使用 Mark-Compact 垃圾回收算法，从整个堆中收集垃圾。小型 GC 使用 Scavenger 垃圾回收算法，收集新生代垃圾。两种不同的算法应对不同的场景：
+
+- 使用 Scavenger 算法主要处理存活周期短的对象中的可访问对象。
+- 使用 Mark-Compact 算法主要处理存活周期长的对象中的不可访问的对象。
+
+因为新生代中存活的可访问对象占少数，老生代中的不可访问对象占少数，所以这两种回收算法配合使用十分高效。
+
+1. 分代垃圾收集
+在 V8 中，所有的 JavaScript 对象都通过堆来分配。V8 将其管理的堆分成两代：新生代和老生代。其中新生代又可细分为两个子代（Nursery、Intermediate）。即新生代中的对象为存活时间较短的对象，老生代中的对象为存活时间较长或常驻内存的对象。
+
+![分代垃圾收集](https://user-images.githubusercontent.com/17002181/126338733-69da76cd-33f3-4d0b-9a8e-c0e67ce0a331.png)
+2. Mark-Compact 算法（Major GC）
+Mark-Compact 算法可以看作是 Mark-Sweep（标记清除）算法和 Cheney 复制算法的结合。该算法主要分为三个阶段：标记、清除、整理。
+
+![Major GC](https://user-images.githubusercontent.com/17002181/126341694-f3a454c4-4d88-4f7c-80b8-f323843eb6a3.png)
+
+（1）标记（Mark）：标记是找所有可访问对象的过程。GC 会从一组已知的对象指针（称为根集，包括执行堆栈和全局对象等）中，进行递归标记可访问对象。
+（2）清除（Sweep）：清除是将不可访问的对象留下的内存空间，添加到空闲链表（free list）的过程。未来为新对象分配内存时，可以从空闲链表中进行再分配。
+（3）整理（Compact）：整理是将可访问对象，往内存一端移动的过程。主要解决标记清除阶段后，内存空间出现较多内存碎片时，可能导致无法分配大对象，而提前触发垃圾回收的问题。
+3. Scavenger 算法（Minor GC）
+V8 对新生代内存空间采用了 Scavenger 算法，该算法使用了 semi-space（半空间） 的设计：将堆一分为二，始终只使用一半的空间：From-Space 为使用空间，To-Space 为空闲空间。
+
+![Minor GC](https://user-images.githubusercontent.com/17002181/126367817-b5a12c03-18ea-4eb9-8bdb-84d2fd3e8aad.png)
+新生代在 From-Space 中分配对象；在垃圾回收阶段，检查并按需复制 From-Space 中的可访问对象到 To-Space 或老生代，并释放 From-Space 中的不可访问对象占用的内存空间；最后 From-Space 和 To-Space 角色互换。
+
+:::warning no-icon
+被淘汰的引用计数法：跟踪每个变量被使用的情况，当声明或赋值时引用count+1，如果变量的值改变则原值引用count-1，循环时回收引用次数为0的变量，但有循环引用导致内存泄漏的问题
+:::
+
++++
+
++++warning 模块化AMD和CommonJs的理解
+CommonJS加载模块是同步的，适用nodeJs，因为本地加载很快，拷贝输出，可修改引用值，运行时
+AMD规范则是异步步加载模块，允许指定回调函数，适用浏览器，网络请求不一定很快，引用输出，只读，编译时
 +++
 
 ### ES6
@@ -337,6 +371,8 @@ JS是单线程的，为了防止一个函数执行时间过长阻塞后面的代
 在浏览器环境中，有JS 引擎线程和渲染线程，且两个线程互斥。 Node环境中，只有JS 线程。 不同环境执行机制有差异，不同任务进入不同Event Queue队列。 当主程结束，先执行准备好微任务，然后再执行准备好的宏任务，一个轮询结束。
 
 浏览器中的事件环（Event Loop)
+
+![eventLoop](https://user-images.githubusercontent.com/12165373/129468098-f75d76f6-ad01-4390-a155-7fcd179f6a07.gif)
 事件环的运行机制是，先会执行栈中的内容，栈中的内容执行后执行微任务，微任务清空后再执行宏任务，先取出一个宏任务，再去执行微任务，然后在取宏任务清微任务这样不停的循环。
 
 eventLoop 是由JS的宿主环境（浏览器）来实现的；
@@ -373,7 +409,24 @@ Promise.all或者web worker
 dom树构建完成时执行DOMContentLoaded，然后页面挂载时执行Window.onLoad。
 +++
 
-## Vue
+## TypeScript
+
++++info Interface 和 Type区别
+相同点
+
+1. Interface 和 Type 描述的类型都可以被 class 实现。
+2. Interface 和 Type 都可以扩展类型。但interface的实现方式是extends，Type则是用交叉类型的方式，extends 中的同名字段的类型必须是兼容的。而交叉类型中出现了同名字段且类型不同时，则类型一般是 never。
+
+不同点
+
+1. interface只能描述对象，适用于接口类型校验，type则是可以定义任何类型
+2. Interface 可以重载、而 Type 不可重复定义。
+3. Type 可以使用 in 关键字动态生成属性，而 Interface 的索引值必须是 string 或 number 类型，所以 Interface 并不支持动态生成属性。
++++
+
+## 框架
+
+### Vue
 
 +++success Object.defineProperty有什么缺陷
 
@@ -394,7 +447,7 @@ vue2中diff算法对虚拟dom进行全量对比，而3中新增了静态标记�
 +++
 
 +++success Vue的生命周期（vue3）
-![Vue生命周期](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/b5fa490ee4d948dba86a950bfe08dede~tplv-k3u1fbpfcp-zoom-in-crop-mark:3024:0:0:0.awebp)
+![Vue生命周期](https://cn.vuejs.org/assets/lifecycle.16e4c08e.png)
 +++
 
 +++success v-if和v-show区别、v-if和v-for执行顺序
@@ -437,17 +490,30 @@ v-show会生成vnode，render的时候也会渲染成真实节点，只是在ren
 v-html会先移除节点下的所有节点，调用html方法，通过addProp添加innerHTML属性，归根结底还是设置innerHTML为v-html的值
 +++
 
-## React
+### React
 
-+++info React 虚拟DOM diff算法原理（keys 的作用是什么）
++++info React 虚拟DOM、diff算法原理、keys 的作用是什么
 虚拟DOM本质是对象，通过遍历dom树克隆dom上的属性生成。操作对象比操作dom性能消耗更少
+
 diff算法是将新生成的虚拟dom树按树形结构比较旧树的同级元素，为每个组件状态中需要改变的dom节点标记为dirty，并在事件循环结束时重新渲染
+为了降低时间复杂度，React 和 Vue 的思路是基于以下两个假设条件，缩减递归迭代规模，将 Diff 算法的时间复杂度降低为 O(n)：
+相同类型的组件产生相同的 DOM 结构，反之亦然。所以不同类型组件的结构不需要进一步递归 Diff。
+同一层级的一组节点，可以通过唯一标识符进行区分。
+
 keys一般出现在for循环中，且每个for循环的keys是独立的，keys是react追踪哪些列表中的元素被增删改的辅助标识，它保证一个for循环中某个元素的唯一性，使得react在进行diff算法时能更高效的进行比对，以确定哪些元素需要被增删改，keys尽量不要用index，否则删除节点时也会重新渲染整个列表
 +++
 
 +++info React的生命周期
 
 ![React生命周期](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/b5fa490ee4d948dba86a950bfe08dede~tplv-k3u1fbpfcp-zoom-in-crop-mark:3024:0:0:0.awebp)
++++
+
++++info React为什么要废除componentWillMount componentWillUpdate 和componentWillReceiveProps
+react分为render phase 和commit phase的，而像componentWillmount componentWillUpdate 和componentWillReceiveProps等几个生命周期函数（包括render）都是属于render phase的，在fiber机制提出前，render phase阶段是不可被打断的（同步渲染），但是同步渲染会有体验问题，比如有几千个组件在渲染时，用户是没办法和浏览器进行交互的（js线程被占用）。在fiber机制提出后，render phase阶段可被打断，被打断后再次执行（优先级别），就会有以上提到的几个生命周期函数被多次调用。所以被废弃掉。componentwillmount 这个生命周期函数之前，有很多程序猿在里面写一些有副作用的code，比如ajax调用，但这种做法react官方是不推荐的。可是又不能禁止。看16.7之后，它推出的新的生命周期getDerivedStateFromProp 函数，就是一个static函数，在里面拿不到this也无法setstate，更符合纯函数的概念。
++++
+
++++info React常用的hook有哪些
+参考站内贴子(https://evilmood.github.io/mublog/react/hook/)
 +++
 
 +++info React的事件代理机制（react17事件合成机制）
@@ -461,49 +527,8 @@ https://juejin.cn/post/6955636911214067720#heading-1
 +++
 
 +++info 说一下 react-fiber
-1）背景
-react-fiber 产生的根本原因，是大量的同步计算任务阻塞了浏览器的 UI 渲染。默认情况下，JS 运算、页面布局和页面绘制都是运行在浏览器的主线程当中，他们之间是互斥的关系。如果 JS 运算持续占用主线程，页面就没法得到及时的更新。当我们调用setState更新页面的时候，React 会遍历应用的所有节点，计算出差异，然后再更新 UI。如果页面元素很多，整个过程占用的时机就可能超过 16 毫秒，就容易出现掉帧的现象。
-2）实现原理
 
-react内部运转分三层：
-
-Virtual DOM 层，描述页面长什么样。
-Reconciler 层，负责调用组件生命周期方法，进行 Diff 运算等。
-Renderer 层，根据不同的平台，渲染出相应的页面，比较常见的是 ReactDOM 和 ReactNative。
-
-Fiber 其实指的是一种数据结构，它可以用一个纯 JS 对象来表示：
-
-```js
-const fiber = {
-    stateNode,    // 节点实例
-    child,        // 子节点
-    sibling,      // 兄弟节点
-    return,       // 父节点
-}
-```
-
-为了实现不卡顿，就需要有一个调度器 (Scheduler) 来进行任务分配。优先级高的任务（如键盘输入）可以打断优先级低的任务（如Diff）的执行，从而更快的生效。任务的优先级有六种：
-
-synchronous，与之前的Stack Reconciler操作一样，同步执行
-task，在next tick之前执行
-animation，下一帧之前执行
-high，在不久的将来立即执行
-low，稍微延迟执行也没关系
-offscreen，下一次render时或scroll时才执行
-
-Fiber Reconciler（react ）执行过程分为2个阶段：
-
-阶段一，生成 Fiber 树，得出需要更新的节点信息。这一步是一个渐进的过程，可以被打断。阶段一可被打断的特性，让优先级更高的任务先执行，从框架层面大大降低了页面掉帧的概率。
-阶段二，将需要更新的节点一次过批量更新，这个过程不能被打断。
-
-Fiber树：React 在 render 第一次渲染时，会通过 React.createElement 创建一颗 Element 树，可以称之为 Virtual DOM Tree，由于要记录上下文信息，加入了 Fiber，每一个 Element 会对应一个 Fiber Node，将 Fiber Node 链接起来的结构成为 Fiber Tree。Fiber Tree 一个重要的特点是链表结构，将递归遍历编程循环遍历，然后配合 requestIdleCallback API, 实现任务拆分、中断与恢复。
-
-从Stack Reconciler到Fiber Reconciler，源码层面其实就是干了一件递归改循环的事情
-所以 React 通过Fiber 架构，让这个执行过程变成可被中断。“适时”地让出 CPU 执行权，除了可以让浏览器及时地响应用户的交互，还有其他好处:
-分批延时对DOM进行操作，避免一次性操作大量 DOM 节点，可以得到更好的用户体验；
-给浏览器一点喘息的机会，它会对代码进行编译优化（JIT）及进行热代码优化，或者对 reflow 进行修正。
-
-核心思想：Fiber 也称协程或者纤程。它和线程并不一样，协程本身是没有并发或者并行能力的（需要配合线程），它只是一种控制流程的让出机制。让出 CPU 的执行权，让 CPU 能在这段时间执行其他的操作。渲染的过程可以被中断，可以将控制权交回浏览器，让位给高优先级的任务，浏览器空闲后再恢复渲染。
+也可参考站内贴子(https://evilmood.github.io/mublog/react/Fiber%E6%9E%B6%E6%9E%84%E8%A7%A3%E6%9E%90/)
 +++
 
 +++info React setState是同步还是异步？
@@ -516,6 +541,7 @@ setState会根据场景的不同来决定，通过isBathingUpdates来判断setSt
 1. 减少组件重新渲染（memo）
 2. 缓存状态和函数（useMemo、useCallback）
 3. 长列表懒加载（虚拟列表），组件懒加载、图片懒加载
+
 +++
 
 +++info React组件通信方式
@@ -525,9 +551,10 @@ setState会根据场景的不同来决定，通过isBathingUpdates来判断setSt
 3. Context（多级往下）
 4. mitt（两个组件间）
 5. mobx、recoil（状态仓库）
+
 +++
 
-## 框架综合
+### 框架综合
 
 +++info Vue和React区别
 状态：Vue采用Proxy做数据代理监听每个状态的变换；React默认通过比较引用（diff）进行，因此react需要绑定很多的memo、useMemo、useCallback做缓存处理

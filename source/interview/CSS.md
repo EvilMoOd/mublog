@@ -40,10 +40,16 @@ BFC，块级格式化上下文，页面盒模型中一块独立的渲染区域�
 `创建方式`
 
 1. html根元素
-2. float
-3. absolute
-4. overflow不为visible
-5. display：flex或table
+2. float不为none
+3. position为absolute、fixed或sticky
+4. overflow不为visible或clip
+5. display：table（table-cell、table-caption）或inline-block或flow-root或list-item，flex（flex、inline-flex）或grid（grid、inline-gird）的子元素
+6. contain值为layout或content或paint或strict
+7. column-span为all
+
+:::info no-icon
+display: flow-root，contain: layout 等是无副作用的，可在不影响已有布局的情况下触发 BFC。
+:::
 
 `解决：`
 
@@ -66,18 +72,18 @@ BFC，块级格式化上下文，页面盒模型中一块独立的渲染区域�
 +++
 
 +++primary 百分比机制
-|子元素                                      |父元素        |
-|-------------------------------------------|--------|
-|width                                      | 父级的width                    |
-|height                                     | 父级的height                   |
-|margin(top,right,bottom,left)              | 父级的width                    |
-|padding(top,right,bottom,left)             | 父级的width                    |
-|border(top,right,bottom,left)              | 父级的width                    |
-|position为absolute时的left,top,right,bottom | 元素的width,height,width,height|
-|position为relative时的left,top,right,bottom | 自身的width,height,width,height|
-|font-size                                  | 父元素的font-size              |
-|line-height                                | 自身的font-size                |
-|transform(left,top)                        | 自身的width,height             |
+| 子元素                                      | 父元素                          |
+| ------------------------------------------- | ------------------------------- |
+| width                                       | 父级的width                     |
+| height                                      | 父级的height                    |
+| margin(top,right,bottom,left)               | 父级的width                     |
+| padding(top,right,bottom,left)              | 父级的width                     |
+| border(top,right,bottom,left)               | 父级的width                     |
+| position为absolute时的left,top,right,bottom | 元素的width,height,width,height |
+| position为relative时的left,top,right,bottom | 自身的width,height,width,height |
+| font-size                                   | 父元素的font-size               |
+| line-height                                 | 自身的font-size                 |
+| transform(left,top)                         | 自身的width,height              |
 
 +++
 

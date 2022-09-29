@@ -5,8 +5,24 @@ description: "本章主要记录npm、yarn、pnpm包管理工具vite、webpack�
 
 ## webpack
 
-+++info webpack执行顺序
++++info webpack工作流程
 ![webpack](https://user-images.githubusercontent.com/26785201/89747816-fe344280-daf2-11ea-820a-6a1a99e34f14.png)
+
+1. 初始化阶段
+初始化参数：从配置文件、配置对象和 Shell 参数中读取并与默认参数进行合并，组合成最终使用的参数。
+创建编译对象：用上一步得到的参数创建 Compiler 对象。
+初始化编译环境：包括注入内置插件、注册各种模块工厂、初始化 RuleSet 集合、加载配置的插件等。
+2. 构建阶段
+开始编译：执行 Compiler 对象的 run 方法，创建 Compilation 对象。
+确认编译入口：进入 entryOption 阶段，读取配置的 Entries，递归遍历所有的入口文件，调用 Compilation.addEntry 将入口文件转换为 Dependency 对象。
+编译模块（make）： 调用 normalModule 中的 build 开启构建，从 entry 文件开始，调用 loader 对模块进行转译处理，然后调用 JS 解释器（acorn）将内容转化为 AST 对象，然后递归分析依赖，依次处理全部文件。
+完成模块编译：在上一步处理好所有模块后，得到模块编译产物和依赖关系图。
+3. 生成阶段
+输出资源（seal）：根据入口和模块之间的依赖关系，组装成多个包含多个模块的 Chunk，再把每个 Chunk 转换成一个 Asset 加入到输出列表，这步是可以修改输出内容的最后机会。
+写入文件系统（emitAssets）：确定好输出内容后，根据配置的 output 将内容写入文件系统。
+
+具体参考站内贴子(https://evilmood.github.io/mublog/util/webpack%E5%B7%A5%E4%BD%9C%E6%B5%81)
+
 +++
 +++info webpack热更新
 (https://zhuanlan.zhihu.com/p/30669007)
@@ -47,11 +63,11 @@ sourcemap：通过 nginx 设置将 .map 文件只对白名单开放(公司内网
 +++
 
 +++warning babel原理
-Babel 的功能很纯粹，它只是一个编译器。大多数编译器的工作过程可以分为三部分：
+Babel 的功能很纯粹，它只是一个编译器。大多数编译器的工作过程可以分为三部分以及核心模块（@babel/core）：
 
-解析（Parse） ：将源代码转换成更加抽象的表示方法（例如抽象语法树）。包括词法分析和语法分析。词法分析主要把字符流源代码（Char Stream）转换成令牌流（ Token Stream），语法分析主要是将令牌流转换成抽象语法树（Abstract Syntax Tree，AST）。
-转换（Transform） ：通过 Babel 的插件能力，对（抽象语法树）做一些特殊处理，将高版本语法的 AST 转换成支持低版本语法的 AST。让它符合编译器的期望，当然在此过程中也可以对 AST 的 Node 节点进行优化操作，比如添加、更新以及移除节点等。
-生成（Generate） ：将 AST 转换成字符串形式的低版本代码，同时也能创建 Source Map 映射。
+解析（Parse） ：将源代码转换成更加抽象的表示方法（例如抽象语法树）。包括词法分析和语法分析。词法分析主要把字符流源代码（Char Stream）转换成令牌流（ Token Stream），语法分析主要是将令牌流转换成抽象语法树（Abstract Syntax Tree，AST）。（@babel/parser ）
+转换（Transform） ：通过 Babel 的插件能力，对（抽象语法树）做一些特殊处理，将高版本语法的 AST 转换成支持低版本语法的 AST。让它符合编译器的期望，当然在此过程中也可以对 AST 的 Node 节点进行优化操作，比如添加、更新以及移除节点等。（@babel/traverse）
+生成（Generate） ：将 AST 转换成字符串形式的低版本代码，同时也能创建 Source Map 映射。（@babel/generator）
 
 ![babel](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/a30bf2739fec4c29847ba1675c03b62f~tplv-k3u1fbpfcp-zoom-in-crop-mark:3024:0:0:0.awebp)
 ![babel](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/c73423b335c34399b4e69b61515365ad~tplv-k3u1fbpfcp-zoom-in-crop-mark:3024:0:0:0.awebp)
