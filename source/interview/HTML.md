@@ -55,7 +55,7 @@ href 是 Hypertext Reference 的缩写，指向网络资源所在位置，建立
 
 +++warning 七层模型和相关协议
 
-![OSI7](https://cdn.nlark.com/yuque/0/2020/webp/1500604/1604024701811-7ac177bc-d649-45b8-8646-53af8f18a0de.webp?x-oss-process=image%2Fresize%2Cw_675%2Climit_0)
+![OSI7](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/c1e8e168d9f249788c74c5b50e0528e2~tplv-k3u1fbpfcp-zoom-in-crop-mark:3024:0:0:0.awebp)
 应用层：允许访问OSI环境的手段（应用协议数据单元APDU）
 表示层：对数据进行翻译、加密和压缩（表示协议数据单元PPDU）
 会话层：建立、管理和终止会话（会话协议数据单元SPDU）
@@ -71,7 +71,7 @@ DHCP协议： 动态主机配置协议，是一种让系统得以连接到网络
 +++
 
 +++warning TCP/IP五层协议
-![TCP/IP5](https://cdn.nlark.com/yuque/0/2020/png/1500604/1604025489154-966a96f5-1c8e-4d03-b9f9-f51250f63a22.png?x-oss-process=image%2Fresize%2Cw_662%2Climit_0)
+![TCP/IP5](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/48cd77d608714c298366f4dac77f33fb~tplv-k3u1fbpfcp-zoom-in-crop-mark:3024:0:0:0.awebp)
 
 应用层 (application layer)：直接为应用进程提供服务。应用层协议定义的是应用进程间通讯和交互的规则，不同的应用有着不同的应用层协议，如 HTTP协议（万维网服务）、FTP协议（文件传输）、SMTP协议（电子邮件）、DNS（域名查询）等。
 传输层 (transport layer)：有时也译为运输层，它负责为两台主机中的进程提供通信服务。该层主要有以下两种协议：
@@ -81,9 +81,9 @@ DHCP协议： 动态主机配置协议，是一种让系统得以连接到网络
 数据链路层 (data link layer)：负责将网络层交下来的 IP 数据报封装成帧，并在链路的两个相邻节点间传送帧，每一帧都包含数据和必要的控制信息（如同步信息、地址信息、差错控制等）。
 物理层 (physical Layer)：确保数据可以在各种物理媒介上进行传输，为数据的传输提供可靠的环境。
 
-![TCP](https://cdn.nlark.com/yuque/0/2020/webp/1500604/1604025001463-47398363-0ab1-4bcf-b247-5d3d76ce117a.webp?x-oss-process=image%2Fresize%2Cw_675%2Climit_0)
+![TCP](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/8a89b9ddb9d541a880fee0dccd1c03e9~tplv-k3u1fbpfcp-zoom-in-crop-mark:3024:0:0:0.awebp)
 
-![IP](https://cdn.nlark.com/yuque/0/2020/webp/1500604/1604025001203-7b104c36-1453-475e-a282-ff2e9cb19e2c.webp?x-oss-process=image%2Fresize%2Cw_675%2Climit_0)
+![IP](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/2db9226a6cdb4ee48daecd9bc4181b64~tplv-k3u1fbpfcp-zoom-in-crop-mark:3024:0:0:0.awebp)
 +++
 
 +++warning URL组成
@@ -138,9 +138,9 @@ HTTP协议具有以下缺点：
 3. 空行：回车符 + 换行符
 4. 请求体: post put等请求携带的数据
 
-![请求报文](https://cdn.nlark.com/yuque/0/2021/png/1500604/1615907508156-a82d09e4-00bf-4dc7-a3a3-1ae75481754e.png?x-oss-process=image%2Fresize%2Cw_608%2Climit_0)
+![请求报文](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/4fb5bb2cb1664850b52e32d57af74f2f~tplv-k3u1fbpfcp-zoom-in-crop-mark:3024:0:0:0.awebp)
 
-![请求报文](https://cdn.nlark.com/yuque/0/2021/png/1500604/1615907573585-6651540d-9dee-4b33-a97f-dee1b31f231c.png?x-oss-process=image%2Fresize%2Cw_622%2Climit_0)
+![请求报文](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/eacc55d7152149e99730346f1edfc9ab~tplv-k3u1fbpfcp-zoom-in-crop-mark:3024:0:0:0.awebp)
 +++
 
 +++warning HTTP响应报文组成
@@ -151,7 +151,7 @@ HTTP协议具有以下缺点：
 空行：回车符 + 换行符
 响应体：由用户自定义添加，如 post 的 body 等
 
-![响应报文](https://cdn.nlark.com/yuque/0/2021/png/1500604/1615907658281-b3a51c98-db27-45be-9b0c-fb2c7665b015.png?x-oss-process=image%2Fresize%2Cw_620%2Climit_0)
+![响应报文](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/1b0183eb91ce451aa17bd515d047062d~tplv-k3u1fbpfcp-zoom-in-crop-mark:3024:0:0:0.awebp)
 +++
 
 +++warning get和post请求的区别
@@ -224,20 +224,20 @@ HTTP2的头部压缩是HPACK算法。在客户端和服务器两端建立“字�
 - 首部表在HTTP/2的连接存续期内始终存在，由客户端和服务器共同渐进地更新；
 - 每个新的首部键值对要么被追加到当前表的末尾，要么替换表中之前的值。
 
-![头部压缩](https://cdn.nlark.com/yuque/0/2020/png/1500604/1604070508591-32d79893-7e98-40c8-b779-ffb6da42cd1b.png?x-oss-process=image%2Fresize%2Cw_455%2Climit_0)
+![头部压缩](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/bda10d6c69e74996b6505777d29b9a74~tplv-k3u1fbpfcp-zoom-in-crop-mark:3024:0:0:0.awebp)
 +++
 
 +++warning 讲讲HTTP3.0
 HTTP/3基于UDP协议实现了类似于TCP的多路复用数据流、传输可靠性等功能，这套功能被称为QUIC协议。
 
-![http3.0](https://cdn.nlark.com/yuque/0/2020/webp/1500604/1604068246276-9b0f553d-3c6e-43a3-8185-8565f9fa1fb4.webp?x-oss-process=image%2Fresize%2Cw_675%2Climit_0)
+![http3.0](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/45a0a2ec0ef143b49d79256cea543418~tplv-k3u1fbpfcp-zoom-in-crop-mark:3024:0:0:0.awebp)
 
 1. 流量控制、传输可靠性功能：QUIC在UDP的基础上增加了一层来保证数据传输可靠性，它提供了数据包重传、拥塞控制、以及其他一些TCP中的特性。
 2. 集成TLS加密功能：目前QUIC使用TLS1.3，减少了握手所花费的RTT数。
 3. 多路复用：同一物理连接上可以有多个独立的逻辑数据流，实现了数据流的单独传输，解决了TCP的队头阻塞问题。
 4. 快速握手：由于基于UDP，可以实现使用0 ~ 1个RTT来建立连接。
 
-![3.0](https://cdn.nlark.com/yuque/0/2020/webp/1500604/1604068246276-5d0a5de2-00db-425e-8b21-0cc4bbb54b24.webp?x-oss-process=image%2Fresize%2Cw_675%2Climit_0)
+![3.0](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/48df233ce8e541efa165160c169b7a70~tplv-k3u1fbpfcp-zoom-in-crop-mark:3024:0:0:0.awebp)
 +++
 
 #### HTTPS
@@ -256,7 +256,7 @@ TLS/SSL的功能实现主要依赖三类基本算法：散列函数hash、对称
 2. 对称加密算法采用协商的秘钥对数据加密
 3. 非对称加密实现身份认证和秘钥协商
 
-![TLS](https://cdn.nlark.com/yuque/0/2020/png/1500604/1603965685769-63a91dae-936d-42d3-8571-577cefa11e33.png?x-oss-process=image%2Fresize%2Cw_497%2Climit_0)
+![TLS](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/5696ee8ccb0d44b08b812a7c964695b7~tplv-k3u1fbpfcp-zoom-in-crop-mark:3024:0:0:0.awebp)
 
 （1）散列函数hash
 常见的散列函数有MD5、SHA1、SHA256。该函数的特点是单向不可逆，对输入数据非常敏感，输出的长度固定，任何数据的修改都会改变散列函数的结果，可以用于防止信息篡改并验证数据的完整性。
@@ -351,7 +351,7 @@ TCP的拥塞控制机制主要是以下四种机制：
 ● 拥塞避免未必能够完全避免拥塞，是说在拥塞避免阶段将拥塞窗口控制为按线性增长，使网络不容易出现阻塞。
 ● 思路： 让拥塞窗口cwnd缓慢的增大，即每经过一个返回时间RTT就把发送方的拥塞控制窗口加一
 ● 无论是在慢开始阶段还是在拥塞避免阶段，只要发送方判断网络出现拥塞，就把慢开始门限设置为出现拥塞时的发送窗口大小的一半。然后把拥塞窗口设置为1，执行慢开始算法。如图所示:
-![a](https://cdn.nlark.com/yuque/0/2020/png/1500604/1604022952123-62276cba-d882-46c9-8a1c-70655dc501af.png?x-oss-process=image%2Fresize%2Cw_674%2Climit_0)
+![a](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/06b60b174bb242b498d244002caded1c~tplv-k3u1fbpfcp-zoom-in-crop-mark:3024:0:0:0.awebp)
 其中，判断网络出现拥塞的根据就是没有收到确认，虽然没有收到确认可能是其他原因的分组丢失，但是因为无法判定，所以都当做拥塞来处理。
 3. 快速重传
 ● 快重传要求接收方在收到一个失序的报文段后就立即发出重复确认(为的是使发送方及早知道有报文段没有到达对方)。发送方只要连续收到三个重复确认就立即重传对方尚未收到的报文段，而不必继续等待设置的重传计时器时间到期。
@@ -359,7 +359,7 @@ TCP的拥塞控制机制主要是以下四种机制：
 4. 快速恢复
 ● 当发送方连续收到三个重复确认时，就执行“乘法减小”算法，把ssthresh门限减半。但是接下去并不执行慢开始算法。
 ● 考虑到如果网络出现拥塞的话就不会收到好几个重复的确认，所以发送方现在认为网络可能没有出现拥塞。所以此时不执行慢开始算法，而是将cwnd设置为ssthresh的大小，然后执行拥塞避免算法。
-![1](https://cdn.nlark.com/yuque/0/2020/png/1500604/1604022952153-a7106d22-225d-4081-9b0a-56b0d1876bc2.png?x-oss-process=image%2Fresize%2Cw_674%2Climit_0)
+![1](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/d0f5339da8c741d19f416cac2af18e4f~tplv-k3u1fbpfcp-zoom-in-crop-mark:3024:0:0:0.awebp)
 +++
 
 +++warning TCP的流量控制机制
@@ -432,7 +432,7 @@ TCP的拥塞控制机制主要是以下四种机制：
 +++
 
 +++info 浏览器的进程有哪些
-![进程](https://cdn.nlark.com/yuque/0/2020/png/1500604/1603803289911-191cabf3-e7e2-4354-a83d-858668cc116f.png?x-oss-process=image%2Fresize%2Cw_675%2Climit_0)
+![进程](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/83e928a4f95d4ebe91d0881b5b2cf94b~tplv-k3u1fbpfcp-zoom-in-crop-mark:3024:0:0:0.awebp)
 
 - 1 个浏览器主进程
 - 1 个 GPU 进程
@@ -458,7 +458,7 @@ TCP的拥塞控制机制主要是以下四种机制：
 +++
 
 +++info 渲染进程的线程有哪些
-![渲染](https://cdn.nlark.com/yuque/0/2020/png/1500604/1603803289922-6462f252-aa33-4cf6-b541-d8bc2e285125.png?x-oss-process=image%2Fresize%2Cw_675%2Climit_0)
+![渲染](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/d6e583f59dc742b9b4e88cf3a3b0f1d4~tplv-k3u1fbpfcp-zoom-in-crop-mark:3024:0:0:0.awebp)
 
 1. GUI渲染线程
 负责渲染浏览器页面，解析HTML、CSS，构建DOM树、构建CSSOM树、构建渲染树和绘制页面；当界面需要重绘或由于某种操作引发回流时，该线程就会执行。
@@ -736,7 +736,7 @@ LocalStorage 和 SessionStorage 同样受到同源策略的限制。而跨域读
 服务器为了能够将工作负载分不到多个服务器来提高网站性能 (负载均衡)等目的，当其受到请求后，会首先根据转发规则来确定请求应该被转发到哪个服务器上，然后将请求转发到对应的真实服务器上。这样本质上起到了对客户端隐藏真实服务器的作用。
 一般使用反向代理后，需要通过修改 DNS 让域名解析到代理服务器 IP，这时浏览器无法察觉到真正服务器的存在，当然也就不需要修改配置了。
 
-![代理](https://cdn.nlark.com/yuque/0/2020/jpeg/1500604/1605256274960-50bd9e69-dde9-4782-b2c0-6afc8188fca2.jpeg?x-oss-process=image%2Fresize%2Cw_469%2Climit_0)
+![代理](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/97e92248f2654185808f80b65f3ca0f6~tplv-k3u1fbpfcp-zoom-in-crop-mark:3024:0:0:0.awebp)
 正向代理和反向代理的结构是一样的，都是 client-proxy-server 的结构，它们主要的区别就在于中间这个 proxy 是哪一方设置的。在正向代理中，proxy 是 client 设置的，用来隐藏 client；而在反向代理中，proxy 是 server 设置的，用来隐藏 server。
 +++
 

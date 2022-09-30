@@ -25,6 +25,7 @@ description: "个人的VSCode常用工具推荐，适合前端开发者"
 - Markdown Emoji
 - Markdown Image
 - Markdown Preview Mermaid Support
+- Markdown PDF
 - npm Intellisense
 - Path Intellisense
 - React Style Helper
