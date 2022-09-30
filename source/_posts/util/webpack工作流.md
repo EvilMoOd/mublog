@@ -5,8 +5,7 @@ categories:
  - [webpack]
 tags:
  - webpack
-sticky: false
-description: "webpack工作流程介绍，摘抄自剑指前端offer webpack工作流程"
+description: "webpack工作流程介绍"
 ---
 
 ![webpack](https://user-images.githubusercontent.com/15681693/138093156-3b4b60be-4bab-4dcb-970d-c83e4ba1dcf6.png)
@@ -196,3 +195,5 @@ const createCompiler = (rawOptions) => {
 #### 写入本地文件，用的是 webpack 函数执行时初始化的文件流工具
 
 #### 执行 done 钩子函数，这里会执行 compiler.run() 的回调，再执行 compiler.close()，然后执行持久化存储（前提是使用的 filesystem 缓存模式）
+
+摘抄自剑指前端offer webpack工作流程

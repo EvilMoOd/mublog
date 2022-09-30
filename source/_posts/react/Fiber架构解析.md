@@ -5,7 +5,6 @@ categories:
  - [react]
 tags:
  - react Fiber
-sticky: false
 description: "React 16采用新协调引擎支持虚拟DOM的渐进式渲染，并将原有的StackReconciler 替换为 FiberReconciler，提高复杂应用的可响应性和性能"
 ---
 
