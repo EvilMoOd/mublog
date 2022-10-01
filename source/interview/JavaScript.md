@@ -169,7 +169,7 @@ a.join = a.shift;
 
 +++warning 立即执行函数作用域
 
-```JS
+```js
 var b = 10;
 (function b() {
    // 内部作用域，会先去查找是有已有变量b的声明，有就直接赋值20，确实有了呀。发现了具名函数 function b(){}，拿此b做赋值；
@@ -190,7 +190,7 @@ call更好一些，因为apply多了一次将数组解构的操作
 
 +++warning 代码输出
 
-```JS
+```js
 function changeObjProperty(o) {
   o.siteUrl = "http://www.baidu.com"
   o = new Object()

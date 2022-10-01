@@ -217,7 +217,7 @@ clear:both;
 
 +++primary 实现一个dialog(可拖拽)
 
-```JS
+```js
     class Dialog {
       constructor(text) {
         this.lastX = 0
