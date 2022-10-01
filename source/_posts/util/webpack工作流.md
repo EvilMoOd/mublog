@@ -28,7 +28,7 @@ description: "webpack工作流程介绍"
 6. 注册 webpack 内部插件。
 7. 触发 initialize 事件。
 
-```JS
+```js
 // lib/webpack.js 122 行 部分代码省略处理
 const create = () => {
   if (!webpackOptionsSchemaCheck(options)) {
@@ -103,7 +103,7 @@ const createCompiler = (rawOptions) => {
 
 ### 所有依赖都解析完毕后，构建阶段结束
 
-```JS
+```js
   // 构建过程涉及流程比较复杂，代码会做省略
 
   // lib/webpack.js 1284行
