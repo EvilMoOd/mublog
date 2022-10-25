@@ -10,105 +10,111 @@ description: "个人的VSCode常用工具推荐，适合前端开发者"
 
 ## 一览图
 
-![c1.png](https://s2.loli.net/2022/09/21/lR9vTmJuGW5AYVg.png)
-![c2.png](https://s2.loli.net/2022/09/21/itXA92K4okFelrY.png)
-![c3.png](https://s2.loli.net/2022/09/21/XbnVAY5Lct16dFr.png)
+![VSCODE 插件.png](https://s2.loli.net/2022/10/25/CRzj2TPuKiW7wrY.png)
 
 ## 分类
 
 ### 语言支持
 
-- CSS Peek
-- DotENV
-- HTML CSS Support
+#### Markdown
+
 - Markdown All in One
-- Markdown Emoji
-- Markdown Image
-- Markdown Preview Mermaid Support
-- Markdown PDF
-- npm Intellisense
-- Path Intellisense
-- React Style Helper
-- Regex Previewer
-- Sass
+- Markdown Markdown Preview Enhanced
+- Markdownlint
+
+#### CSS
+
+- CSS Navigation
 - SCSS IntelliSense
-- stylus
-- SVG
-- Vue 3 Support - All In One
+- UnoCSS
+- Indent folder
+
+#### JS
+
 - Vue Language Features (Volar)
 - element-ui-helper
-- Expo Tools
+- Regex Previewer
 - i18n Ally
+
+#### SVG & Icon
+
+- SVG
 - Iconify IntelliSense
-- Tailwind CSS IntelliSense
-- UnoCSS
 
 ### 代码片段
 
-- any-rule
-- Easy Snippet
-- EvilMoOd Snippet
-- html tag wrap
 - IntelliCode
 - IntelliCode Completion
-- Paste JSON as Code (Refresh)
-- Mockjs Snippets
-- Surround
-- Template String Converter
-- ClassTree
-- css-auto-prefix
+- EvilMoOd Snippet
+- Easy Snippet
 - uni-app-snippets
 - uni-ui-snippets
+- any-rule
+- Paste JSON as Code (Refresh)
+- Template String Converter
 
 ### VSCODE增强
 
+#### 书签和TODO
+
 - bookmarks
-- CodeRunner
-- Error Lens
-- Highlight Matching Tag
-- image preview
-- importCost
-- IntelliCode API Usage Examples
-- Live Preview
-- Mock-Myself
-- Postcode
-- Project Manager
-- Search node_modules
 - Todo Tree
+
+#### HTML预览和图片预览
+
+- Live Preview
+- image preview
+
+#### NPM包查询 & 导入体积 & 版本控制
+
+- Search node_modules
+- import Cost
 - Version Lens
-- Bloop
+
+#### Mock & 接口测试 & MySQL
+
+- Mock-Myself
+- Mockjs Snippets
+- Postcode
 - MySQL
 
 ### 编码规范
 
 - ESLint
-- Stylelint
+- StyleLint
 - Prettier
-- markdownlint
-- EditorConfig for VS Code
 
 ### Git
 
-- Git History
-- GitHub Repositories
 - GitLens
-- New Relic CodeStream
+- Git History
+- GitHub Pull Requests and Issues
+- GitHub Repositories
 - Remote Repositories
 
 ### 编码无关(美化、音乐、翻译)
 
+#### 主题
+
+- Material Theme
+- vscode-icons
+- Error Lens
 - background-color
-- CloudMusic
+- indent-rainbow
+
+#### 语言
+
 - Chinese
 - CodeSpell Checker
 - Code Translate
-- google-search
-- indent-rainbow
+
+#### 力扣 & 网易云
+
 - LeetCode
-- Material Theme
-- vscode-icons
+- CloudMusic
+
+#### 代码照片 & 字数时间统计
+
+- CodeSnap
 - VS Code Counter
 - WakaTime
-- Catppuccin for VSCode
-- CodeSnap
-- Power Mode
