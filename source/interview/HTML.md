@@ -17,6 +17,10 @@ description: "本模块主要包含HTML、网络和浏览器三大块知识，�
 
 +++
 
++++danger defer 和 async的区别
+![async derfer](https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/d0cf341216374b559fcda53c58bc9d17~tplv-k3u1fbpfcp-zoom-in-crop-mark:4536:0:0:0.awebp?)
++++
+
 +++danger  说一下 HTML5 drag api
 darg：事件主体是被拖放元素，在正在拖放被拖放元素时触发。
 dragstart：事件主体是被拖放元素，在开始拖放被拖放元素时触发，。
@@ -34,6 +38,20 @@ drop：事件主体是目标元素，在目标元素完全接受被拖放元素�
 +++danger src和href的区别
 src 是 source 的缩写，指向外部资源的位置，指向的内容将会嵌入到文档中当前标签所在位置；在请求 src 资源时会将其指向的资源下载并应用到文档内，例如 js 脚本，img 图片和 frame 等元素。当浏览器解析到该元素时，会暂停其他资源的下载和处理，直到将该资源加载、编译、执行完毕，图片和框架等元素也如此，类似于将所指向资源嵌入当前标签内。这也是为什么将js 脚本放在底部而不是头部。src用于img、input、style、script、iframe;
 href 是 Hypertext Reference 的缩写，指向网络资源所在位置，建立和当前元素（锚点）或当前文档（链接）之间的链接，如果在文档中添加。那么浏览器会识别该文档为 css 文件，就会并行下载资源并且不会停止对当前文档的处理。 这也是为什么建议使用 link 方式来加载 css，而不是使用@import 方式。href用于link a 标签
++++
+
++++danger img标签的srcset属性作用 picture标签作用
+可定义一组额外的图片集合，让浏览器根据不同的屏幕状况选取合适的图片来显示。
+
+同样作为响应式匹配窗口
+```HTML
+<picture>
+  <source srcset="640.png" media="(min-width: 640px)">
+  <source srcset="480.png" media="(min-width: 480px)">
+  <img src="320.png" alt="">
+</picture>
+```
+
 +++
 
 +++danger iframe 有那些优点和缺点？
