@@ -31,15 +31,18 @@ description: "个人的VSCode常用工具推荐，适合前端开发者"
 
 #### JS
 
+- Template String Converter
+- Paste JSON as Code (Refresh)
 - Vue Language Features (Volar)
 - element-ui-helper
-- Regex Previewer
+- Iconify IntelliSense
 - i18n Ally
+- any-rule
+- Regex Previewer
 
-#### SVG & Icon
+#### SVG
 
 - SVG
-- Iconify IntelliSense
 
 ### 代码片段
 
@@ -49,9 +52,12 @@ description: "个人的VSCode常用工具推荐，适合前端开发者"
 - Easy Snippet
 - uni-app-snippets
 - uni-ui-snippets
-- any-rule
-- Paste JSON as Code (Refresh)
-- Template String Converter
+
+### 编码规范
+
+- ESLint
+- StyleLint
+- Prettier
 
 ### VSCODE增强
 
@@ -77,12 +83,6 @@ description: "个人的VSCode常用工具推荐，适合前端开发者"
 - Mockjs Snippets
 - Postcode
 - MySQL
-
-### 编码规范
-
-- ESLint
-- StyleLint
-- Prettier
 
 ### Git
 
