@@ -104,11 +104,11 @@ menu:
     store: /stack/store || compress
   interview:
     default: / || pen
+    Network: /interview/Network || coffee
     HTML: /interview/HTML || coffee
     CSS: /interview/CSS || coffee
     JavaScript: /interview/JavaScript || coffee
     engineer: /interview/engineer || coffee
-    optimization: /interview/optimization || coffee
   about: /about/ || user
 
 # Social Links
