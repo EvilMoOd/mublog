@@ -95,7 +95,25 @@ null表示”没有对象”，即该处不应该有值。典型用法是：
 includes内部使用Number.isNaN对NaN进行检测，而indexOf无法检测NaN
 +++
 
++++warning 介绍一下Set、Map、WeakSet、WeakMap的区别
+Set：不能出现重复的原始值和引用值
+Map：键值对的集合，类似一个字典表
+WeakSet：成员都是对象且弱引用，可以被垃圾回收机制回收从而防止内存泄漏，可以保存DOM节点
+WeakMap：只接受对象作为键名（null除外）且是弱引用，值任意，键名所指向的对象可以被垃圾回收机制回收，此时键名无效不能遍历，方法只有get、set、has、delete
++++
+
 #### 核心
+
++++warning var和let、const的区别和实现原理
+
+1. var和let声明变量，const声明常量且必须初始化赋值
+2. var是函数作用域，let、const是块级作用域，所以let和const无法存在window上
+3. var存在变量提升，在var之前打印变量返回undefined，而let和const不存在变量提升会报错（暂时性死区）
+4. var可以重复声明，let和const不行
+
+JS引擎在读取变量时，先找到变量绑定的内存地址，然后找到地址所指向的内存空间，最后读取其中内容，当变量改变时，JS引擎不会用新值覆盖之前的旧值的内存空间，而是重新分配一个新的内存空间来存储新值，并将新的内存地址与变量进行绑定，JS引擎会在何时的时机进行GC，回收旧的内存空间
+const定义常量时，变量名与内存地址之间建立一种不可变的绑定关系，阻隔变量地址改变，当const定义的变量重新赋值时，JS引擎会抛出异常
++++
 
 +++warning new操作符做了什么
 
@@ -187,72 +205,6 @@ var b = 10;
 +++warning call 和 apply 的区别是什么，哪个性能更好一些
 call更好一些，因为apply多了一次将数组解构的操作
 +++
-
-+++warning 代码输出
-
-```js
-function changeObjProperty(o) {
-  o.siteUrl = "http://www.baidu.com"
-  o = new Object()
-  o.siteUrl = "http://www.google.com"
-} 
-let webSite = new Object();
-changeObjProperty(webSite);
-console.log(webSite.siteUrl);
-
-// 解答
-// 这里把o改成a
-// webSite引用地址的值copy给a了
-function changeObjProperty(a) {
-  // 改变对应地址内的对象属性值
-  a.siteUrl = "http://www.baidu.com"
-  // 变量a指向新的地址 以后的变动和旧地址无关
-  a = new Object()
-  a.siteUrl = "http://www.google.com"
-  a.name = 456
-} 
-var webSite = new Object();
-webSite.name = '123'
-changeObjProperty(webSite);
-console.log(webSite); // {name: 123, siteUrl: 'http://www.baidu.com'}
-```
-
-+++
-
-+++warning 设计一个LRU
-
-```js
-class LRUCache {
-  // Least Recently Used最近最少使用算法
-  // get的时候将原来有的放到第一位，put的时候如果size满了则淘汰掉最久未使用的
-  constructor(size) {
-    this.size = size;
-    this.cache = new Map();
-  }
-  get(key) {
-    const hasKey = this.cache.has(key);
-    if (!hasKey) {
-      return -1;
-    } else {
-      const val = this.cache.get(key);
-      this.cache.delete(key);
-      this.cache.set(key, val);
-      return val;
-    }
-  }
-  put(key, value) {
-    const hasKey = this.cache.has(key);
-    if (hasKey) {
-      this.cache.delete(key);
-    }
-    this.cache.set(key, value);
-    if (this.cache.size > this.size) {
-      this.cache.delete(this.cache.keys().next().value);
-    }
-  }
-}
-
-```
 
 +++
 
@@ -560,6 +512,29 @@ setState会根据场景的不同来决定，通过isBathingUpdates来判断setSt
 状态：Vue采用Proxy做数据代理监听每个状态的变换；React默认通过比较引用（diff）进行，因此react需要绑定很多的memo、useMemo、useCallback做缓存处理
 主要是react更强调数据不可变以及单向数据流，而vue强调可变数据以及数据的双向绑定，
 渲染：Vue再渲染时会跟踪每一个组件的依赖关系，不需要重新渲染整个渲染树，React在渲染时则会直接渲染该组件以及其子组件
++++
+
++++info React和Vue的diff算法时间复杂度从O(n^3^)降到O(n)，是如何计算出来的？
+
+1. 如果父节点不同，放弃对子节点的比较，直接删除旧节点，然后添加新的节点重新渲染
+2. 如果子节点有变化，VirtualDom不会计算而是重新渲染
+3. 通过key唯一策略
++++
+
++++info 框架如何优化首页的加载速度？首页白屏是什么问题引起的？如何解决呢？
+首页加载过慢，其原因是因为它是一个单页应用，需要将所有需要的资源都下载到浏览器端并解析。
+解决办法
+
+1. 使用首屏SSR + 跳转SPA方式来优化
+2. 改单页应用为多页应用，需要修改webpack的entry
+3. 改成多页以后使用应该使用prefetch的就使用
+4. 处理加载的时间片，合理安排加载顺序，尽量不要有大面积空隙
+5. CDN资源还是很重要的，最好分开，也能减少一些不必要的资源损耗
+6. 使用Quicklink，在网速好的时候 可以帮助你预加载页面资源
+7. 骨架屏这种的用户体验的东西一定要上，最好借助stream先将这部分输出给浏览器解析
+8. 合理使用web worker优化一些计算
+9. 缓存一定要使用，但是请注意合理使用
+10. 可以借助一些工具进行性能评测，重点调优，例如使用performance自己实现下等
 +++
 
 +++info 路由概念，前端路由与后端路由区别
