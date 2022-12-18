@@ -10,7 +10,7 @@ description: "个人的VSCode常用工具推荐，适合前端开发者"
 
 ## 一览图
 
-![VSCODE 插件.png](https://s2.loli.net/2022/10/25/CRzj2TPuKiW7wrY.png)
+![VSCODE插件.jpeg](https://s2.loli.net/2022/12/13/yvY4hp917MeNQxo.jpg)
 
 ## 分类
 
@@ -34,7 +34,9 @@ description: "个人的VSCode常用工具推荐，适合前端开发者"
 - Template String Converter
 - Paste JSON as Code (Refresh)
 - Vue Language Features (Volar)
-- element-ui-helper
+- Antd Rush
+- antdv-snippet
+- elementv-snippet
 - Iconify IntelliSense
 - i18n Ally
 - any-rule
@@ -46,7 +48,6 @@ description: "个人的VSCode常用工具推荐，适合前端开发者"
 
 ### 代码片段
 
-- IntelliCode
 - IntelliCode Completion
 - EvilMoOd Snippet
 - Easy Snippet
@@ -56,7 +57,6 @@ description: "个人的VSCode常用工具推荐，适合前端开发者"
 ### 编码规范
 
 - ESLint
-- StyleLint
 - Prettier
 
 ### VSCODE增强
@@ -94,13 +94,14 @@ description: "个人的VSCode常用工具推荐，适合前端开发者"
 
 ### 编码无关(美化、音乐、翻译)
 
-#### 主题
+#### 美化
 
 - Material Theme
 - vscode-icons
-- Error Lens
 - background-color
+- Error Lens
 - indent-rainbow
+- File Nesting Updater
 
 #### 语言
 
@@ -108,13 +109,11 @@ description: "个人的VSCode常用工具推荐，适合前端开发者"
 - CodeSpell Checker
 - Code Translate
 
-#### 力扣 & 网易云
+#### 力扣
 
 - LeetCode
-- CloudMusic
 
-#### 代码照片 & 字数时间统计
+#### 字数时间统计
 
-- CodeSnap
 - VS Code Counter
 - WakaTime
