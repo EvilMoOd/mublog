@@ -14,10 +14,14 @@ description: "ant design vue 组件样式的全局修改"
 
 ![antdv样式修改图1.png](https://s2.loli.net/2022/12/18/18oSR9CZzPGw3WQ.png)
 
-### /deep/样式穿透
+### :deep()样式穿透
 
 样式穿透修改组件虽然简单高效，但受到限制，它只能在局部组件使用，而且用这种方式设置覆盖ant-design-vue的slider类会使其在hover时也默认为该色，也就是hover失效。显然这种解法非常拉胯，也无法在App.vue下全局生效
-后面改用:global和>>>也无济于事
+后面改用:global()和>>>也无济于事
+
+:::success
+2022-12-27日小更新，/deep/在vue文档中找不到了，后来发现现在改用新的写法，感觉非常不错，有点类似less的函数式编程又或是伪类的写法
+:::
 
 ### style文件下的全局样式覆盖
 
