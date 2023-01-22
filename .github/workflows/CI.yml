@@ -49,4 +49,6 @@ jobs:
       - name: Deploy
         run: |
             hexo clean
+            hexo generate
+            hexo algolia
             hexo deploy
