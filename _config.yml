@@ -193,3 +193,6 @@ live2d:
     show: true
   react:
     opacity: 0.7
+
+sitemap:
+  path: sitemap.xml
