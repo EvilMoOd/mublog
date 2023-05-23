@@ -5,6 +5,7 @@ categories:
  - [个人杂谈]
 tags:
  - 杂谈
+sticky: false
 description: "回顾一下He3这小半年工作"
 ---
 
