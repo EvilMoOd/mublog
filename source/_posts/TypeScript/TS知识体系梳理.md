@@ -173,12 +173,59 @@ let add2 = (x: number = 100, y?: number): number => x + y
 当然在明确该参数指定不需要默认时，可以用条件判断进行约束
 :::
 
-#### 函数重载（用泛型更加优雅，不建议重载写法）
+#### 函数重载~~（用泛型更加优雅，不建议重载写法）~~
 
 ```typescript
 function add(x: number[]): number
 function add(x: string[]): string
 ```
+
+2023.9.20日更新：
+一次重构公司项目的axios函数时发现了关于函数重载的新的理解，函数重载的用法不仅仅如上面Demo这么简单，在某些时候发挥着泛型无法替代的作用
+如下示例中
+
+```typescript
+interface Person {
+  name: string;
+  age: number;
+}
+interface Boy extends Person {
+  gender: 'man';
+}
+
+interface Girl extends Person {
+  gender: 'women';
+}
+// 重载：根据传入参数的不同来返回不同的值
+function xxx(params: Boy): string;
+function xxx(params: Girl): Promise<string>;
+// 函数实现：将可能的入参和返回用联合类型写出来
+function xxx(params: Boy | Girl): string | Promise<string> {
+  if (params.gender === 'man') {
+    return 'isMan';
+  } else {
+    return new Promise<string>((resolve, reject) => {
+      resolve('isGirl');
+    });
+  }
+}
+// 测试用例
+const person1: Boy = {
+  name: 'nihao',
+  age: 13,
+  gender: 'man',
+};
+const person2: Girl = {
+  name: 'nihao',
+  age: 13,
+  gender: 'women',
+};
+const res = xxx(person1); //string
+const res2 = xxx(person2); // Promise<string>
+
+```
+
+通过上面简单的示例，可以使TS类型系统通过函数的入参正确地返回所需要的返回值，确保类型提示正确。
 
 :::success no-icon
 类型推断：Typescript对不显式定义的变量会根据赋值等情况自动推断其类型
