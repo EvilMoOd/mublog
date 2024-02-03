@@ -48,7 +48,9 @@
       </div>
       <div id="imgs" class="pjax">
       {%- set covers = _cover(page, 6) %}
-      {%- if covers.length == 6 %}
+      {%- if covers === 'Home' %}
+          <img src="{{ url_for(theme.statics + theme.images + '/'+ theme.homeCover) }}">
+      {%- elseif covers.length == 6 %}
         <ul>
           {%- for image in covers %}
           <li class="item" data-background-image="{{ image }}"></li>

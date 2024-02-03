@@ -119,15 +119,22 @@ hexo.extend.helper.register('_image_url', function(img, path = '') {
 })
 
 hexo.extend.helper.register('_cover', function(item, num) {
-  const { statics, js, image_server, image_list } = hexo.theme.config;
+  const { image_server, image_list } = hexo.theme.config;
 
+  // 首页图，选_image.yaml第一张
+  if(item.path === 'index.html') {
+    return 'Home'
+  }
+  // 帖子单图
   if(item.cover) {
     return this._image_url(item.cover, item.path)
-  } else if (item.photos && item.photos.length > 0) {
-    return this._image_url(item.photos[0], item.path)
-  } else {
-    return randomBG(num || 1, image_server, image_list);
   }
+  // 帖子多图
+  if (item.photos && item.photos.length > 0) {
+    return this._image_url(item.photos[0], item.path)
+  }
+  // 默认返回随机背景图
+  return randomBG(num || 1, image_server, image_list);
 
 })
 

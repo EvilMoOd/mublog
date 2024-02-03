@@ -13,6 +13,7 @@ statics: /
 css: css
 js: js
 images: images
+homeCover: homeCover.png
 
 # themes/shoka/source/images/***
 favicon:
