@@ -110,7 +110,7 @@ menu:
     CSS: /interview/CSS || coffee
     JavaScript: /interview/JavaScript || coffee
     engineer: /interview/engineer || coffee
-  about: /about/ || user
+  about: https://evilmood.github.io/ || user
 
 # Social Links
 # Usage: `Key: permalink || icon || color`
