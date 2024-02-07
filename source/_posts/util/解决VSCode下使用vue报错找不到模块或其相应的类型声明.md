@@ -5,7 +5,6 @@ categories:
  - [Vue]
 tags:
  - Vue
-sticky: true
 description: "解决VSCode下使用vue报错找不到模块“./App.vue”或其相应的类型声明"
 ---
 

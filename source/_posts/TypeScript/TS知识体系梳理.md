@@ -5,7 +5,6 @@ categories:
  - [Typescipt]
 tags:
  - Typescript
-sticky: true
 description: "鉴于TS官方文档全英且废话多难以阅读，且ts起步知识学的比较杂乱，所以打算重新写一篇文章构建一下TS知识体系，且打算做一下类型体操，所以算是对知识点进行一次复习"
 ---
 ## 定义变量的类型

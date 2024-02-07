@@ -6,7 +6,6 @@ categories:
  - [react]
 tags:
  - react hook
-sticky: true
 description: react18已经出了接近一个多月了，hook作为react函数式组件最重要的功能，需要熟练运用和掌握其中的原理和使用场景
 mermaid: true
 ---

@@ -5,7 +5,6 @@ categories:
  - [轮子]
 tags:
  - 轮子
-sticky: true
 description: "响应式获取后台数据，直接提取即可放到页面中进行渲染使用"
 ---
 
