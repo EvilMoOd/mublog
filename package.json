@@ -17,6 +17,7 @@
     "hexo-algoliasearch": "^1.0.0",
     "hexo-autoprefixer": "^2.0.0",
     "hexo-deployer-git": "^3.0.0",
+    "hexo-douban": "^2.2.6",
     "hexo-filter-gitcalendar": "^1.0.9",
     "hexo-fs": "^3.1.0",
     "hexo-generator-archive": "^1.0.0",

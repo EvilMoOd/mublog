@@ -196,3 +196,17 @@ live2d:
 
 sitemap:
   path: sitemap.xml
+
+douban:
+  id: 278065356
+  builtin: true
+  game:
+    title: "木的游戏海洋"
+    quote: "感恩游戏陪伴过我的每个日夜和与我相伴的朋友们，他们都是我最珍贵的回忆"
+  movie:
+    title: "木看过的电影"
+    quote: "好的电影就像是一杯龙舌兰日出，越品越醇香"
+  book:
+    title: "木的书架"
+    quote: "我不怎么喜欢看书，把时间更多地给了电影和游戏"
+  timeout: 10000
