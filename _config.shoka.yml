@@ -104,8 +104,8 @@ menu:
   #   frame: /stack/frame || coffee
   #   store: /stack/store || compress
   seem:
-    default: / || blackberry
-    game: /games || game
+    default: / || coffee
+    game: /games || blackberry
     movie: /movies || play
     book: /books || tag
   interview:
