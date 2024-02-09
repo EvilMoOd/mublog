@@ -10,8 +10,6 @@ description: "个人的VSCode常用工具推荐，适合前端开发者"
 
 ## 一览图
 
-![VSCODE插件.jpeg](https://s2.loli.net/2022/12/13/yvY4hp917MeNQxo.jpg)
-
 ## 分类
 
 ### 语言支持

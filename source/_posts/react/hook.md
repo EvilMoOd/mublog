@@ -280,7 +280,7 @@ export default memo(function Index() {
 });
 ```
 
-![useEffect](https://s2.loli.net/2022/07/14/8rKJuRcoFAxBLtk.png)  
+![useEffect](https://s11.ax1x.com/2024/02/09/pF31R3j.png)  
 
 通过实验我们可以得出结论（分5段，若数组为空，则只有1、4、5）
 1、在一开始组件render时会执行一次副作用函数
