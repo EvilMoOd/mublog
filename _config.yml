@@ -143,18 +143,16 @@ minify:
       - '**/*.min.js'
 
 algolia:
-  appId: "LOTQX33PEK"
-  apiKey: "830b9a6eabcfeec5d81f9bad9be4cbf7"
-  adminApiKey: "492e5fbdde82d822faa1791e6af9b576"
+  appId: "L3GRRP0EGH"
+  apiKey: "8a360140dfad70d65ba66496fe38bd95"
+  adminApiKey: "114cc92168778c6f9b0d069d2e246bbe"
   chunkSize: 5000
   indexName: "blog"
   fields:
     - title #必须配置
     - path #必须配置
     - categories #推荐配置
-    - content:strip:truncate,0,4000
-    - gallery
-    - photos
+    - content:strip:truncate,0,3000
     - tags
 
 feed:
