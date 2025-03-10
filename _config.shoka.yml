@@ -233,8 +233,7 @@ valine:
 audio:
   - title: 心动歌单
     list:
-      - https://music.163.com/#/playlist?id=2399323307
-    #  - https://music.163.com/#/playlist?id=497827001
+      - https://music.163.com/#/playlist?id=497827001
   # - title: 列表2
   # list:
   #  - https://music.163.com/#/playlist?id=2031842656
