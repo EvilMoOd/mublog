@@ -143,9 +143,9 @@ minify:
       - '**/*.min.js'
 
 algolia:
-  appId: "L3GRRP0EGH"
-  apiKey: "8a360140dfad70d65ba66496fe38bd95"
-  adminApiKey: "114cc92168778c6f9b0d069d2e246bbe"
+  appId: "ZWAF2429HW"
+  apiKey: "0257501091a23948dd1148ba6d65d518"
+  adminApiKey: "8d2db24f02f9282e3a451d40ff49fd46"
   chunkSize: 5000
   indexName: "blog"
   fields:
