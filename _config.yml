@@ -143,11 +143,11 @@ minify:
       - '**/*.min.js'
 
 algolia:
-  appId: "ZWAF2429HW"
-  apiKey: "0257501091a23948dd1148ba6d65d518"
-  adminApiKey: "8d2db24f02f9282e3a451d40ff49fd46"
+  appId: "VORRIDIV6M"
+  apiKey: "c2102a0611aff25a591a3f41c2772921"
+  adminApiKey: "4bd7e593a4e9c8dd90fd844a25210aa2"
   chunkSize: 5000
-  indexName: "blog"
+  indexName: "Blog"
   fields:
     - title #必须配置
     - path #必须配置
