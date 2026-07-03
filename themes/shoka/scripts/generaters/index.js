@@ -31,11 +31,11 @@ hexo.extend.generator.register('index', function(locals) {
 
   if (categories && categories.length) {
     categories.forEach((cat) => {
-      let cover = 'source/_posts/' + cat.slug + '/cover.jpg'
+      let cover = 'source/_posts/' + cat.slug + '/cover.webp'
 
       if (fs.existsSync(cover)) {
         covers.push({
-          path: cat.slug + '/cover.jpg',
+          path: cat.slug + '/cover.webp',
           data: function () {
             return fs.createReadStream(cover)
           }

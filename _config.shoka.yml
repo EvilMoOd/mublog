@@ -13,7 +13,7 @@ statics: /
 css: css
 js: js
 images: images
-homeCover: homeCover.png
+homeCover: homeCover.webp
 
 # themes/shoka/source/images/***
 favicon:
@@ -143,7 +143,7 @@ sidebar:
   # position: left
   position: right
   # Replace the default avatar image and set the url here.
-  avatar: avatar.jpg
+  avatar: avatar.webp
 
 widgets:
   # if true, will show random posts

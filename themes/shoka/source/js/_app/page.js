@@ -431,7 +431,8 @@ const loadComments = function () {
 }
 
 const algoliaSearch = function (pjax) {
-  if (CONFIG.search === null)
+  // 守卫：vendor 未加载（搜索已下线）时直接返回，避免 ReferenceError
+  if (CONFIG.search === null || typeof algoliasearch === 'undefined' || typeof instantsearch === 'undefined')
     return
 
   if (!siteSearch) {
