@@ -32,5 +32,8 @@
     "live2d-widget-model-wanko": "^1.0.5",
     "nunjucks": "^3.2.3",
     "pangu": "^4.0.7"
+  },
+  "devDependencies": {
+    "terser": "^5.48.0"
   }
 }

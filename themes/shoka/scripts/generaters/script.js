@@ -1,6 +1,7 @@
 'use strict';
 const fs = require('hexo-fs');
 const url = require('url');
+const { minify_sync } = require('terser');
 
 
 hexo.extend.generator.register('script', function(locals){
@@ -71,7 +72,17 @@ hexo.extend.generator.register('script', function(locals){
   return {
       path: theme.js + '/app.js',
       data: function(){
-        return hexo.render.renderSync({text:  text, engine: 'js'});
+        var r = minify_sync(text, {
+          compress: true,
+          mangle: { toplevel: true },
+          format: { comments: false }
+        });
+        if (r.error) {
+          hexo.log.warn('terser failed: %s [line %s col %s] — shipping unminified',
+            r.error.message, r.error.line, r.error.col);
+          return text;
+        }
+        return r.code;
       }
     };
 });
