@@ -70,7 +70,8 @@ const registerExtURL = function () {
 }
 
 const postFancybox = function (p) {
-  if ($(p + ' .md img')) {
+  if (!$(p + ' .md img')) return;
+  var loadBox = function () {
     vendorCss('fancybox');
     vendorJs('fancybox', function () {
       var q = jQuery.noConflict();
@@ -127,6 +128,13 @@ const postFancybox = function (p) {
         }
       });
     }, window.jQuery);
+  };
+  // 延后到浏览器空闲再加载 fancybox（~150KB jQuery+fancybox+justifiedGallery），不与首屏关键资源抢带宽
+  // timeout: 3s 内必触发，避免空闲太久导致点图时还没加载
+  if (window.requestIdleCallback) {
+    window.requestIdleCallback(loadBox, { timeout: 3000 });
+  } else {
+    setTimeout(loadBox, 1000);
   }
 }
 

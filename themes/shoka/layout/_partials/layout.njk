@@ -49,7 +49,7 @@
       <div id="imgs" class="pjax">
       {%- set covers = _cover(page, 6) %}
       {%- if covers === 'Home' %}
-          <img src="{{ url_for(theme.statics + theme.images + '/'+ theme.homeCover) }}">
+          <img src="{{ url_for(theme.statics + theme.images + '/'+ theme.homeCover) }}" width="1920" height="1371" fetchpriority="high" alt="">
       {%- elseif covers.length == 6 %}
         <ul>
           {%- for image in covers %}
