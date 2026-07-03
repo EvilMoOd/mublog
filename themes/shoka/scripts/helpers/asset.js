@@ -41,26 +41,13 @@ hexo.extend.helper.register('_vendor_font', () => {
 });
 
 
-hexo.extend.helper.register('_vendor_js', () => {
-  const config = hexo.theme.config.vendors.js;
-
-  if (!config) return '';
-
-  // 移除 algolia / instantsearch / fetch：
-  let vendorJs = ['pace', 'pjax', 'anime', 'lazyload', 'quicklink'].map(item => {
-    if (config[item]) {
-      return config[item];
-    }
-    return '';
-  });
-
-  vendorJs = vendorJs.filter(item => item !== '');
-  vendorJs = [...new Set(vendorJs)];
-  vendorJs = vendorJs.join(',');
-
-  let result = vendorJs ? `<script src="//cdn.jsdelivr.net/combine/${vendorJs}"></script>` : '';
-
-  return vendorJs ? htmlTag('script', { src: `//cdn.jsdelivr.net/combine/${vendorJs}` }, '') : '';
+hexo.extend.helper.register('_vendor_js', function () {
+  const { statics, js } = hexo.theme.config;
+  // 自托管：原 //cdn.jsdelivr.net/combine/pace,pjax,anime,lazyload,quicklink
+  // 改为本地 /js/vendor.min.js（见 themes/shoka/source/js/vendor.min.js），消除 jsdelivr 单点 + defer 非阻塞。
+  // 命名 .min.js 以复用 _config.yml 的 minify.js.exclude('**/*.min.js')，避免被 uglify 2.6.4 二次压缩（ES5 footgun）。
+  // 重新生成 vendor.min.js 见 memory mublog-vendor-js-selfhosted。
+  return htmlTag('script', { src: url_for.call(this, `${statics}${js}/vendor.min.js?v=${theme_env['version']}`), defer: true }, '');
 });
 
 hexo.extend.helper.register('_css', function(...urls) {
@@ -73,5 +60,5 @@ hexo.extend.helper.register('_css', function(...urls) {
 hexo.extend.helper.register('_js', function(...urls) {
   const { statics, js } = hexo.theme.config;
 
-  return urls.map(url => htmlTag('script', { src: url_for.call(this, `${statics}${js}/${url}?v=${theme_env['version']}`) }, '')).join('');
+  return urls.map(url => htmlTag('script', { src: url_for.call(this, `${statics}${js}/${url}?v=${theme_env['version']}`), defer: true }, '')).join('');
 });
