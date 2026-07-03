@@ -47,6 +47,44 @@ const pjaxReload = function () {
   pageScroll(0);
 }
 
+// Valine 评论懒加载：进入视口附近才拉取 MiniValine，避免每篇文章页都立即下载评论脚本
+var valineObserver = null;
+const initValine = function () {
+  vendorJs('valine', function () {
+    var options = Object.assign({}, CONFIG.valine);
+    options = Object.assign(options, LOCAL.valine || {});
+    options.el = '#comments';
+    options.pathname = LOCAL.path;
+    options.pjax = pjax;
+    options.lazyload = lazyload;
+    new MiniValine(options);
+    setTimeout(function () {
+      positionInit(1);
+      postFancybox('.v');
+    }, 1000);
+  }, window.MiniValine);
+};
+const lazyValine = function () {
+  if (valineObserver) {
+    valineObserver.disconnect();
+    valineObserver = null;
+  }
+  var comments = $('#comments');
+  if (!comments) return; // 本页无评论区，不加载
+  if (typeof IntersectionObserver === 'undefined') {
+    initValine(); // 旧浏览器兜底
+    return;
+  }
+  valineObserver = new IntersectionObserver(function (entries, obs) {
+    if (entries.some(function (e) { return e.isIntersecting; })) {
+      obs.disconnect();
+      valineObserver = null;
+      initValine();
+    }
+  }, { rootMargin: '200px' });
+  valineObserver.observe(comments);
+};
+
 const siteRefresh = function (reload) {
   LOCAL_HASH = 0
   LOCAL_URL = window.location.href
@@ -55,21 +93,7 @@ const siteRefresh = function (reload) {
   vendorJs('copy_tex');
   vendorCss('mermaid');
   vendorJs('chart');
-  vendorJs('valine', function() {
-    var options = Object.assign({}, CONFIG.valine);
-    options = Object.assign(options, LOCAL.valine||{});
-    options.el = '#comments';
-    options.pathname = LOCAL.path;
-    options.pjax = pjax;
-    options.lazyload = lazyload;
-
-    new MiniValine(options);
-
-    setTimeout(function(){
-      positionInit(1);
-      postFancybox('.v');
-    }, 1000);
-  }, window.MiniValine);
+  lazyValine();
 
   if(!reload) {
     $.each('script[data-pjax]', pjaxScript);
