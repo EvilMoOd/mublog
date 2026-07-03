@@ -73,14 +73,6 @@ pagination_dir: page
 ## Themes: http://hexo.io/themes/
 theme: shoka # edit for Theme.shoka
 
-# Deployment
-## Docs: http://hexo.io/docs/deployment.html
-deploy:
-  type: git
-  repository: git@github.com:EvilMoOd/mublog.git
-  branch: blog
-
-
 # edit for Theme.shoka
 autoprefixer:
   exclude:
