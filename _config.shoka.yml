@@ -61,25 +61,25 @@ font:
 
   # Font settings for alternate title.
   logo:
-    external: true
+    external: false
     family: Fredericka the Great
     size: 3.5
 
   # Font settings for site title.le-system,"PingFang
   title:
-    external: true
+    external: false
     family: yin
     size: 2.5
 
   # Font settings for headlines (<h1> to <h6>).
   headings:
-    external: true
+    external: false
     family: yin
     size:
 
   # Font settings for posts.
   posts:
-    external: true
+    external: false
     family: yin
 
   # Font settings for <code> and code blocks.
@@ -89,7 +89,7 @@ font:
 
 # project of https://www.iconfont.cn/
 # //at.alicdn.com/t/font_1832207_c8i9n1ulxlt.css => 1832207_c8i9n1ulxlt
-iconfont: '4432040_wi5b13jj32s'
+iconfont: "4432040_wi5b13jj32s"
 
 menu:
   home: / || home
@@ -157,7 +157,7 @@ footer:
   icon:
     name: sakura rotate
     # Change the color of icon, using Hex Code.
-    color: '#ffc0cb'
+    color: "#ffc0cb"
   # Dependencies: https://github.com/theme-next/hexo-symbols-count-time
   count: true
   powered: true
@@ -179,8 +179,8 @@ tagcloud:
   # All values below are same as default, change them by yourself.
   min: 16 # Minimun font size in px
   max: 22 # Maxium font size in px
-  start: '#72cecf' # Start color (hex, rgba, hsla or color keywords)
-  end: '#ffbac3' # End color (hex, rgba, hsla or color keywords)
+  start: "#72cecf" # Start color (hex, rgba, hsla or color keywords)
+  end: "#ffbac3" # End color (hex, rgba, hsla or color keywords)
   amount: 200 # Amount of tags, change it if you have more than 200 tags
 
 # ---------------------------------------------------------------
@@ -216,9 +216,9 @@ valine:
     friend: 小伙伴
     investor: 金主粑粑
   tagColor:
-    master: 'var(--color-orange)'
-    friend: 'var(--color-aqua)'
-    investor: 'var(--color-pink)'
+    master: "var(--color-orange)"
+    friend: "var(--color-aqua)"
+    investor: "var(--color-pink)"
   tagMember:
     master:
       - hash of 962475158@qq.com

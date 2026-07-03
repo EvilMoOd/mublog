@@ -19,8 +19,10 @@ hexo.extend.helper.register('_vendor_font', () => {
 
   const fontDisplay = '&display=swap';
   const fontSubset = '&subset=latin,latin-ext';
-  const fontStyles = ':300,300italic,400,400italic,700,700italic';
-  const fontHost = '//fonts.googleapis.com';
+  // 精简字重：原 300/300italic/400/400italic/700/700italic 6 档 → 4 档（多数字族只用 400/700）
+  const fontStyles = ':400,400italic,700,700italic';
+  // 换国内镜像：fonts.googleapis.com 在大陆被墙，换 fonts.loli.net（Google Fonts 镜像）
+  const fontHost = '//fonts.loli.net';
 
   //Get a font list from config
   let fontFamilies = ['global', 'logo', 'title', 'headings', 'posts', 'codes'].map(item => {

@@ -28,3 +28,11 @@ if $custom = hexo-config('style.custom')
   font-family: yin;
   src: url("https://cdn.jsdelivr.net/gh/DreamStar1996/ImageHub-CDN@1.1.3/font/inpinxuanyihei/inpinxuanyihei.woff2");
 }
+
+// Fredericka the Great 子集化自托管：仅保留 logo 文字 "Evil MoOd" 用到的字母，
+// 198KB -> 29KB。改 logo 文字后需重新子集化（见 memory mublog-font-subset-fredericka）。
+@font-face {
+  font-family: "Fredericka the Great";
+  src: url("../fonts/fredericka.woff2") format("woff2");
+  font-display: swap;
+}
