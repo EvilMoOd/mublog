@@ -28,7 +28,7 @@
     "hexo-server": "^3.0.0",
     "hexo-symbols-count-time": "^0.7.1",
     "hexo-util": "^2.6.1",
-    "js-yaml": "^4.1.0",
+    "js-yaml": "^5.2.1",
     "live2d-widget-model-wanko": "^1.0.5",
     "nunjucks": "^3.2.3",
     "pangu": "^4.0.7"
