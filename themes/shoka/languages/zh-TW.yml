@@ -85,8 +85,6 @@ state:
 
 search:
   placeholder: 文章搜尋
-  empty: "關於 「 ${query} 」 ，什麼也沒搜到"
-  stats: "${time} ms 內找到 ${hits} 條結果"
 
 cheers:
   um: 嗯..

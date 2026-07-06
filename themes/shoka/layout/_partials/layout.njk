@@ -95,6 +95,8 @@
     </footer>
   </div>
 
+  {{ partial('_partials/search.njk', {}, {cache: true}) }}
+
 {%- set ccIcon = '<i class="ic i-creative-commons"></i>' %}
 {%- set ccText = theme.creative_commons.license | upper %}
 <script data-config type="text/javascript">

@@ -438,136 +438,59 @@ const loadComments = function () {
   }
 }
 
-const algoliaSearch = function (pjax) {
-  // 守卫：vendor 未加载（搜索已下线）时直接返回，避免 ReferenceError
-  if (CONFIG.search === null || typeof algoliasearch === 'undefined' || typeof instantsearch === 'undefined')
-    return
+var pagefindLoaded = false;
 
-  if (!siteSearch) {
-    siteSearch = BODY.createChild('div', {
-      id: 'search',
-      innerHTML: '<div class="inner"><div class="header"><span class="icon"><i class="ic i-search"></i></span><div class="search-input-container"></div><span class="close-btn"><i class="ic i-times-circle"></i></span></div><div class="results"><div class="inner"><div id="search-stats"></div><div id="search-hits"></div><div id="search-pagination"></div></div></div></div>'
+const loadPagefind = function (cb) {
+  if (pagefindLoaded) { cb(); return; }
+  pagefindLoaded = true;
+  var base = CONFIG.root + 'pagefind/';
+  document.head.createChild('link', {
+    rel: 'stylesheet',
+    href: base + 'pagefind-ui.css'
+  });
+  getScript(base + 'pagefind-ui.js', function () {
+    new PagefindUI({
+      element: '#pagefind-search',
+      baseUrl: CONFIG.root,
+      bundlePath: base,
+      showImages: false
     });
-  }
-
-  var search = instantsearch({
-    indexName: CONFIG.search.indexName,
-    searchClient: algoliasearch(CONFIG.search.appID, CONFIG.search.apiKey),
-    searchFunction: function (helper) {
-      var searchInput = $('.search-input');
-      if (searchInput.value) {
-        helper.search();
-      }
-    }
+    cb();
   });
+};
 
-  search.on('render', function () {
-    pjax.refresh($('#search-hits'));
-  });
-
-  // Registering Widgets
-  search.addWidgets([
-    instantsearch.widgets.configure({
-      hitsPerPage: CONFIG.search.hits.per_page || 10
-    }),
-
-    instantsearch.widgets.searchBox({
-      container: '.search-input-container',
-      placeholder: LOCAL.search.placeholder,
-      // Hide default icons of algolia search
-      showReset: false,
-      showSubmit: false,
-      showLoadingIndicator: false,
-      cssClasses: {
-        input: 'search-input'
-      }
-    }),
-
-    instantsearch.widgets.stats({
-      container: '#search-stats',
-      templates: {
-        text: function (data) {
-          var stats = LOCAL.search.stats
-            .replace(/\$\{hits}/, data.nbHits)
-            .replace(/\$\{time}/, data.processingTimeMS);
-          return stats + '<span class="algolia-powered"></span><hr>';
-        }
-      }
-    }),
-
-    instantsearch.widgets.hits({
-      container: '#search-hits',
-      templates: {
-        item: function (data) {
-          const regex = /.{0,10}<(mark)[^>]*>(.*?<\/\1>).{0,12}/g
-          const match = data._highlightResult.contentStripTruncate.value.match(regex)
-          var cats = data.categories ? '<span>' + data.categories.join('<i class="ic i-angle-right"></i>') + '</span>' : '';
-          if (match)
-            return '<a href="' + CONFIG.root + data.path + '">' + cats + data._highlightResult.title.value + '<br>' + match[0] + '</a>';
-          else
-            return '<a href="' + CONFIG.root + data.path + '">' + cats + data._highlightResult.title.value + '<br>' + '' + '</a>';
-
-        },
-        empty: function (data) {
-          return '<div id="hits-empty">' +
-            LOCAL.search.empty.replace(/\$\{query}/, data.query) +
-            '</div>';
-        }
-      },
-      cssClasses: {
-        item: 'item'
-      }
-    }),
-
-    instantsearch.widgets.pagination({
-      container: '#search-pagination',
-      scrollTo: false,
-      showFirst: false,
-      showLast: false,
-      templates: {
-        first: '<i class="ic i-angle-double-left"></i>',
-        last: '<i class="ic i-angle-double-right"></i>',
-        previous: '<i class="ic i-angle-left"></i>',
-        next: '<i class="ic i-angle-right"></i>'
-      },
-      cssClasses: {
-        root: 'pagination',
-        item: 'pagination-item',
-        link: 'page-number',
-        selectedItem: 'current',
-        disabledItem: 'disabled-item'
-      }
-    })
-  ]);
-
-  search.start();
-
-  // Handle and trigger popup window
+const initSearch = function () {
+  // 绑定 header 搜索图标（#nav 非 .pjax，不随翻页替换；防重复绑定）
   $.each('.search', function (element) {
+    if (element.dataset.searchBound) return;
+    element.dataset.searchBound = '1';
     element.addEventListener('click', function () {
       document.body.style.overflow = 'hidden';
       transition(siteSearch, 'shrinkIn', function () {
-        $('.search-input').focus();
-      }) // transition.shrinkIn
+        loadPagefind(function () {
+          var input = siteSearch.querySelector('.pagefind-ui__search-input');
+          if (input) input.focus();
+        });
+      });
     });
   });
 
-  // Monitor main search box
-  const onPopupClose = function () {
+  // 关闭逻辑只绑一次
+  if (window._searchCloseBound) return;
+  window._searchCloseBound = true;
+
+  var onPopupClose = function () {
     document.body.style.overflow = '';
-    transition(siteSearch, 0); // "transition.shrinkOut"
+    transition(siteSearch, 0);
   };
 
   siteSearch.addEventListener('click', function (event) {
-    if (event.target === siteSearch) {
-      onPopupClose();
-    }
+    if (event.target === siteSearch) onPopupClose();
   });
-  $('.close-btn').addEventListener('click', onPopupClose);
+  var closeBtn = siteSearch.querySelector('.close-btn');
+  if (closeBtn) closeBtn.addEventListener('click', onPopupClose);
   window.addEventListener('pjax:success', onPopupClose);
   window.addEventListener('keyup', function (event) {
-    if (event.key === 'Escape') {
-      onPopupClose();
-    }
+    if (event.key === 'Escape') onPopupClose();
   });
-}
+};

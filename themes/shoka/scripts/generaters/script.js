@@ -42,15 +42,6 @@ hexo.extend.generator.register('script', function(locals){
     }
   };
 
-  if(config.algolia) {
-    siteConfig.search = {
-      appID    : config.algolia.appId,
-      apiKey   : config.algolia.apiKey,
-      indexName: config.algolia.indexName,
-      hits     : theme.search.hits
-    }
-  }
-
   if(theme.audio) {
     siteConfig.audio = theme.audio
   }

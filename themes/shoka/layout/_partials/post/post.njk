@@ -11,7 +11,7 @@
     <meta itemprop="name" content="{{ title }}">
   </span>
 
-  <div class="body md{%- if post.direction and post.direction.toLowerCase() === 'rtl' %} rtl{%- endif %}" itemprop="articleBody">
+  <div class="body md{%- if post.direction and post.direction.toLowerCase() === 'rtl' %} rtl{%- endif %}" itemprop="articleBody" data-pagefind-body>
     {# Gallery support #}
     {%- if post.photos and post.photos.length %}
       <div class="gallery" itemscope itemtype="http://schema.org/ImageGallery">

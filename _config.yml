@@ -134,19 +134,6 @@ minify:
     exclude:
       - '**/*.min.js'
 
-algolia:
-  appId: "VORRIDIV6M"
-  apiKey: "c2102a0611aff25a591a3f41c2772921"
-  adminApiKey: "4bd7e593a4e9c8dd90fd844a25210aa2"
-  chunkSize: 5000
-  indexName: "Blog"
-  fields:
-    - title #必须配置
-    - path #必须配置
-    - categories #推荐配置
-    - content:strip:truncate,0,3000
-    - tags
-
 feed:
     limit: 20
     order_by: "-date"

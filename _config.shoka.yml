@@ -241,13 +241,6 @@ audio:
 # random image api
 image_server: #"https://acg.xydwz.cn/api/api.php"
 
-# Algolia Search
-# For more information: https://www.algolia.com
-
-search:
-  hits:
-    per_page: 10
-
 # Dependencies: https://github.com/amehime/hexo-renderer-multi-markdown-it
 pangu: false
 
@@ -308,8 +301,6 @@ vendors:
     pjax: npm/pjax@0.2.8/pjax.min.js
     fetch: npm/whatwg-fetch@3.4.0/dist/fetch.umd.min.js
     anime: npm/animejs@3.2.0/lib/anime.min.js
-    algolia: npm/algoliasearch@4/dist/algoliasearch-lite.umd.js
-    instantsearch: npm/instantsearch.js@4/dist/instantsearch.production.min.js
     lazyload: npm/lozad@1/dist/lozad.min.js
     quicklink: npm/quicklink@2/dist/quicklink.umd.js
     fancybox: combine/npm/jquery@3.5.1/dist/jquery.min.js,npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js,npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js

@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "build": "hexo generate",
+    "build": "hexo generate && pagefind --site public",
     "clean": "hexo clean",
     "server": "hexo server"
   },
@@ -34,6 +34,7 @@
     "pangu": "^4.0.7"
   },
   "devDependencies": {
+    "pagefind": "^1.5.2",
     "terser": "^5.48.0"
   }
 }

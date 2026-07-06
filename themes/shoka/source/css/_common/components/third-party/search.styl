@@ -1,167 +1,186 @@
 #search {
   position: fixed;
-  background: var(--nav-bg);
+  --search-overlay-bg: var(--grey-1-a7);
+  background: radial-gradient(circle at top, var(--grey-1-a3), transparent 55%), var(--search-overlay-bg);
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
   left: 0;
   top: 0;
   width: 100%;
   height: 100%;
-  padding: 1.25rem;
+  padding: 0;
   z-index: $zindex-4;
   display: none;
 
   >.inner {
-    border-radius: 0;
-    height: 100%;
-    margin: 0 auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     width: 43.75rem;
+    max-width: calc(100% - 2.5rem);
+    max-height: 86vh;
+    margin: 0;
     text-shadow: none;
+    background: var(--grey-1-a7);
+    border: .0625rem solid var(--grey-4);
+    border-radius: 1.5rem;
+    box-shadow: 0 1.25rem 3.75rem var(--box-bg-shadow);
+    padding: 1.25rem;
+    box-sizing: border-box;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
 
     +mobile() {
       width: 100%;
-    }
-    .icon,
-    .close-btn {
-      color: var(--grey-5);
-      font-size: 1.125rem;
-      padding: 0 .625rem;
-    }
-
-    .close-btn {
-      cursor: pointer;
-
-      &:hover i {
-        color: var(--grey-7);
-      }
-    }
-
-    .header {
-      display: flex;
-      background: var(--grey-1-a5);
-      border-radius: 3rem;
-      padding: .5rem 1.5rem;
-      margin-bottom: 1.25rem;
-      border: .0625rem solid var(--grey-5);
-      font-size: $font-size-large;
-      align-items: center;
-    }
-
-    .search-input-container {
-      flex-grow: 1;
-
-      form {
-        padding: .125rem;
-      }
-    }
-
-    .search-input {
-      background: transparent;
-      border: 0;
-      outline: 0;
-      width: 100%;
-
-      &::-webkit-search-cancel-button {
-        display: none;
-      }
-    }
-  }
-
-
-  .results {
-    height: calc(100% - 6.25rem);
-    padding: 1.875rem 1.875rem .3125rem;
-    border-radius: .3125rem;
-
-    background: var(--grey-1-a7) url(../images/search.png) no-repeat bottom right;
-
-    color: var(--text-color);
-
-    .inner {
-      position: relative;
+      max-width: 100%;
+      max-height: 100vh;
       height: 100%;
-      overflow: hidden;
-    }
-
-    hr {
-      margin: .625rem 0;
+      top: 0;
+      left: 0;
+      transform: none;
+      border-radius: 0;
     }
   }
 
-}
+  .search-head {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: .625rem;
+  }
 
+  .close-btn {
+    color: var(--grey-5);
+    font-size: 1.25rem;
+    padding: 0 .3125rem;
+    cursor: pointer;
+    line-height: 1;
 
-.algolia-powered {
-  float: right;
-  background: url('../images/algolia_logo.svg') no-repeat;
-  display: inline-block;
-  height: 1.125rem;
-  width: 4.25rem;
-  margin: .5rem auto;
-}
+    &:hover i {
+      color: var(--grey-7);
+    }
+  }
 
+  // Pagefind UI 主题色对齐（变量名核对自 pagefind-ui.css 实际暴露列表）
+  --pagefind-ui-primary: var(--primary-color);
+  --pagefind-ui-text: var(--text-color);
+  --pagefind-ui-background: transparent;
+  --pagefind-ui-border: var(--grey-4);
+  --pagefind-ui-border-radius: 3rem;
+  --pagefind-ui-font: inherit;
+  --pagefind-ui-scale: .75;
 
-#search-hits {
-  overflow-y: scroll;
-  height: calc(100% - 8.125rem);
+  // 搜索框：透明背景融入面板（不再有白盒子），pill 形细边框，轻字重
+  .pagefind-ui__search-input {
+    height: 3rem;
+    font-size: 1rem;
+    font-weight: 400;
+    padding: 0 3rem 0 2.75rem;
+    background: transparent;
+    border: .0625rem solid var(--grey-4);
+    box-shadow: none;
+    outline: none;
 
-  ol {
+    &::placeholder {
+      opacity: .45;
+    }
+
+    &:focus {
+      border-color: var(--primary-color);
+      outline: none;
+    }
+  }
+
+  // 清除按钮：隐藏"Clear"文字，换成 × 图标，垂直居中
+  .pagefind-ui__search-clear {
+    top: 0;
+    height: 3rem;
+    width: 3rem;
     padding: 0;
-  }
-
-  .item {
-    margin: .9375rem 0;
-
-    a {
-      border-bottom: .0625rem dashed var(--grey-4);
-      display: block;
-      the-transition();
-    }
-
-    span {
-      font-size: 70%;
-      display: block;
-
-      i {
-        color: var(--grey-4);
-        margin: 0 .3125rem;
-      }
-    }
-  }
-
-}
-
-
-#search-pagination {
-  ul {
-    padding: 0rem;
-    margin: 1.25rem 0;
-  }
-  .pagination {
-    opacity: 1;
-    padding: 0;
-  }
-
-  .pagination-item {
-    display: inline-block;
-  }
-
-  .page-number {
+    font-size: 0;
+    color: var(--grey-5);
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     the-transition();
-  }
 
-  .current .page-number {
-    @extend .pagination .page-number.current;
-    cursor: default;
-  }
-
-  .disabled-item {
-    color: var(--grey-4);
-    cursor: default;
-
-    .page-number:hover {
-      color: var(--grey-4);
-      background: none;
-      box-shadow: none;
+    &::after {
+      content: '×';
+      font-size: 1.5rem;
+      line-height: 1;
+      transform: translateY(-.1875rem);
     }
 
+    &:hover {
+      color: var(--grey-7);
+    }
+  }
+
+  // 结果区
+  .pagefind-ui__results-area {
+    margin-top: .875rem;
+  }
+
+  .pagefind-ui__result {
+    position: relative;
+    padding: .75rem 1rem;
+    margin-bottom: .625rem;
+    background: var(--grey-1-a3);
+    border: .0625rem solid var(--grey-3);
+    border-radius: .75rem;
+    the-transition();
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    &:hover {
+      border-color: var(--primary-color);
+      background: var(--grey-1-a5);
+    }
+  }
+
+  .pagefind-ui__result-title {
+    margin-bottom: .1875rem;
+  }
+
+  .pagefind-ui__result-link {
+    position: static;
+    color: var(--text-color);
+    font-size: 1rem;
+    font-weight: 600;
+    the-transition();
+
+    // stretched-link：::after 蒙层覆盖整个 .pagefind-ui__result，整块可点击
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+    }
+
+    &:hover {
+      color: var(--primary-color);
+    }
+  }
+
+  .pagefind-ui__result-excerpt {
+    color: var(--grey-5);
+    font-size: .875rem;
+    line-height: 1.7;
+    margin-top: .1875rem;
+  }
+
+  // "N results" 计数行
+  .pagefind-ui__message {
+    font-size: .8125rem;
+    color: var(--grey-5);
+    font-weight: 400;
+    height: auto;
+    padding-top: .25rem;
   }
 }
