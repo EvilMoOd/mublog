@@ -50,7 +50,13 @@
     .breadcrumb {
       margin: 0;
       display: flex;
-      max-height: 1.2rem;
+      max-height: 1.5rem;
+    }
+
+    // 增大链接触摸目标（Lighthouse target-size），min-height 含 padding（border-box）
+    a {
+      display: block;
+      min-height: 1.5rem;
     }
   }
 

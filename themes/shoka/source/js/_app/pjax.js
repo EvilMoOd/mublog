@@ -148,7 +148,7 @@ const siteInit = function () {
 
   algoliaSearch(pjax)
 
-  window.addEventListener('scroll', scrollHandle)
+  window.addEventListener('scroll', scrollHandle, { passive: true })
 
   window.addEventListener('resize', resizeHandle)
 

@@ -1,6 +1,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#FFF">
+<meta name="description" content="{{ page.description or page.excerpt or config.description }}">
 
 {%- if theme.favicon.apple_touch_icon %}
   <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for(theme.statics +  theme.images + theme.favicon.apple_touch_icon) }}">
@@ -40,10 +41,10 @@
 <link rel="alternate" type="application/atom+xml" title="{{config.title}}" href="{{ full_url_for('/atom.xml') }}" />
 <link rel="alternate" type="application/json" title="{{config.title}}" href="{{ full_url_for('/feed.json') }}" />
 
-<link rel="preconnect" href="//fonts.loli.net">
-<link rel="preconnect" href="//gstatic.loli.net" crossorigin>
-<link rel="preconnect" href="//cdn.jsdelivr.net">
-<link rel="preconnect" href="//at.alicdn.com">
+<link rel="preconnect" href="https://fonts.loli.net">
+<link rel="preconnect" href="https://gstatic.loli.net" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link rel="preconnect" href="https://at.alicdn.com">
 
 {{ _vendor_font() }}
 

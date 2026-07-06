@@ -40,7 +40,7 @@ const cardActive = function () {
           $('.cards .item.active').removeClass('active')
         }
         element.addClass('active')
-      })
+      }, item === 'touchstart' ? { passive: true } : false)
     });
     ['mouseleave'].forEach(function (item) {
       element.addEventListener(item, function (event) {

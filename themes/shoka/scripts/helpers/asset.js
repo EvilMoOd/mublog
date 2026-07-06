@@ -18,11 +18,11 @@ hexo.extend.helper.register('_vendor_font', () => {
   if (!config || !config.enable) return '';
 
   const fontDisplay = '&display=swap';
-  const fontSubset = '&subset=latin,latin-ext';
-  // 精简字重：原 300/300italic/400/400italic/700/700italic 6 档 → 4 档（多数字族只用 400/700）
-  const fontStyles = ':400,400italic,700,700italic';
+  const fontSubset = '&subset=latin';
+  // 精简字重：仅 400/700（去 italic，ZCOOL 无 italic、代码 italic 罕用），减少未用 @font-face
+  const fontStyles = ':400,700';
   // 换国内镜像：fonts.googleapis.com 在大陆被墙，换 fonts.loli.net（Google Fonts 镜像）
-  const fontHost = '//fonts.loli.net';
+  const fontHost = 'https://fonts.loli.net';
 
   //Get a font list from config
   let fontFamilies = ['global', 'logo', 'title', 'headings', 'posts', 'codes'].map(item => {
@@ -37,7 +37,10 @@ hexo.extend.helper.register('_vendor_font', () => {
   fontFamilies = fontFamilies.join('|');
 
   // Merge extra parameters to the final processed font string
-  return fontFamilies ? htmlTag('link', { rel: 'stylesheet', href: `${fontHost}/css?family=${fontFamilies.concat(fontDisplay, fontSubset)}` }) : '';
+  // 非阻塞加载：display=swap 已保证文字不阻塞，CSS 用 media=print+onload 异步加载，省 ~1.6s 渲染阻塞
+  if (!fontFamilies) return '';
+  const fontHref = `${fontHost}/css?family=${fontFamilies.concat(fontDisplay, fontSubset)}`;
+  return htmlTag('link', { rel: 'stylesheet', href: fontHref, media: 'print', onload: "this.media='all'" });
 });
 
 
