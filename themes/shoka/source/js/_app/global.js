@@ -38,7 +38,7 @@ const Loader = {
   hide: function(sec) {
     if(!CONFIG.loader.start)
       sec = -1
-    this.timer = setTimeout(this.vanish, sec||3000);
+    this.timer = setTimeout(this.vanish, sec||0);
   },
   vanish: function() {
     if(Loader.lock)
