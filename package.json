@@ -15,7 +15,7 @@
     "hexo-autoprefixer": "^2.0.0",
     "hexo-douban": "^2.2.6",
     "hexo-fs": "^3.1.0",
-    "hexo-generator-archive": "^1.0.0",
+    "hexo-generator-archive": "^2.0.0",
     "hexo-generator-category": "^1.0.0",
     "hexo-generator-index": "^2.0.0",
     "hexo-generator-sitemap": "^3.0.1",
