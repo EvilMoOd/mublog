@@ -31,7 +31,7 @@
     "js-yaml": "^4.1.0",
     "live2d-widget-model-wanko": "^1.0.5",
     "nunjucks": "^3.2.3",
-    "pangu": "^4.0.7"
+    "pangu": "^8.0.0"
   },
   "devDependencies": {
     "pagefind": "^1.5.2",
